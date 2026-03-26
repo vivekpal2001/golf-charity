@@ -388,6 +388,7 @@ PORT=3001
 
 ## 🌐 Deployment
 
+
 | Component | Recommended Platform |
 |-----------|---------------------|
 | Frontend | Vercel, Netlify |
