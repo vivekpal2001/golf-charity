@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hall of Fame | Play With Purpose</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline": "#8d7168",
+              "on-secondary-container": "#3e5980",
+              "surface-container-highest": "#e4e2de",
+              "secondary-fixed-dim": "#adc8f5",
+              "secondary-container": "#b5d0fd",
+              "surface-bright": "#fbf9f5",
+              "primary-fixed": "#ffdbd0",
+              "on-tertiary-fixed-variant": "#0e5138",
+              "on-tertiary": "#ffffff",
+              "on-error": "#ffffff",
+              "primary-fixed-dim": "#ffb59d",
+              "on-background": "#1b1c1a",
+              "primary": "#ab3500",
+              "secondary-fixed": "#d5e3ff",
+              "inverse-primary": "#ffb59d",
+              "surface-container": "#efeeea",
+              "inverse-surface": "#30312e",
+              "surface-dim": "#dbdad6",
+              "surface": "#fbf9f5",
+              "on-error-container": "#93000a",
+              "tertiary-container": "#69a687",
+              "tertiary": "#2c694e",
+              "on-primary-fixed": "#390c00",
+              "on-secondary-fixed": "#001c3b",
+              "inverse-on-surface": "#f2f0ed",
+              "on-primary-container": "#5f1900",
+              "on-secondary": "#ffffff",
+              "tertiary-fixed": "#b1f0ce",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed-variant": "#2d486d",
+              "primary-container": "#ff6b35",
+              "on-primary": "#ffffff",
+              "outline-variant": "#e1bfb5",
+              "on-tertiary-fixed": "#002114",
+              "on-surface": "#1b1c1a",
+              "error-container": "#ffdad6",
+              "surface-variant": "#e4e2de",
+              "on-tertiary-container": "#003a25",
+              "background": "#fbf9f5",
+              "surface-tint": "#ab3500",
+              "surface-container-high": "#eae8e4",
+              "tertiary-fixed-dim": "#95d4b3",
+              "surface-container-low": "#f5f3ef",
+              "on-surface-variant": "#594139",
+              "on-primary-fixed-variant": "#832600",
+              "error": "#ba1a1a",
+              "secondary": "#455f87",
+              "gold": "#F7B801"
+            },
+            fontFamily: {
+              "headline": ["Manrope", "sans-serif"],
+              "body": ["Manrope", "sans-serif"],
+              "label": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            keyframes: {
+              'fade-scale': {
+                '0%': { opacity: '0', transform: 'scale(0.95)' },
+                '100%': { opacity: '1', transform: 'scale(1)' },
+              },
+              'pop-in': {
+                '0%': { opacity: '0', transform: 'scale(0.5)' },
+                '80%': { transform: 'scale(1.1)' },
+                '100%': { opacity: '1', transform: 'scale(1)' },
+              },
+              'ken-burns': {
+                '0%': { transform: 'scale(1) translate(0, 0)' },
+                '100%': { transform: 'scale(1.1) translate(-2%, -1%)' },
+              },
+              'reveal': {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            },
+            animation: {
+              'fade-scale': 'fade-scale 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'pop-in': 'pop-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
+              'ken-burns': 'ken-burns 20s ease-in-out infinite alternate',
+              'reveal': 'reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .editorial-shadow {
+            box-shadow: 0 20px 40px rgba(171, 53, 0, 0.06);
+        }
+        .winning-ball {
+            box-shadow: 0 0 15px rgba(247, 184, 1, 0.2);
+        }
+        .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+        .stagger-2 { animation-delay: 0.2s; opacity: 0; }
+        .stagger-3 { animation-delay: 0.3s; opacity: 0; }
+        .stagger-4 { animation-delay: 0.4s; opacity: 0; }
+        .stagger-5 { animation-delay: 0.5s; opacity: 0; }
+        
+        .reveal-on-scroll { opacity: 0; }
+        .revealed { animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<span class="text-xl font-extrabold tracking-tighter text-slate-900 dark:text-white">Play With Purpose</span>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-manrope text-sm font-semibold tracking-tight text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Home</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">How It Works</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Prizes</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-orange-600 dark:text-orange-400 border-b-2 border-orange-600 pb-1" href="#">Winners</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Charity</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">About</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-sm font-semibold text-slate-600 hover:opacity-80 transition-all duration-300">Log In</button>
+<button class="bg-primary-container text-white px-6 py-2 rounded-full text-sm font-bold scale-95 active:scale-90 transition-transform">Enter Draw</button>
+</div>
+</div>
+</nav>
+<main class="pt-32">
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-8 mb-24">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+<div class="lg:col-span-7">
+<span class="inline-block text-primary font-bold tracking-[0.2em] uppercase text-xs mb-4">The Hall of Fame</span>
+<h1 class="text-6xl md:text-8xl font-black text-secondary leading-[0.9] tracking-tight mb-8">Architects of Impact.</h1>
+<p class="text-xl text-on-surface-variant max-w-xl leading-relaxed">Celebrating the champions who turn every swing into a movement for good. Join the ranks of those playing with purpose.</p>
+</div>
+<div class="lg:col-span-5 relative">
+<div class="aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl animate-fade-scale">
+<img class="w-full h-full object-cover" data-alt="luxury golf resort green with cinematic golden hour sunlight hitting the flag and fairways in soft focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASuhr9ufkaT6D9Z2-Psc1B3baAYdI6myVBxep0vFG4QBoxOTRQMN9Pw-DdSHD7-7Hsz880KHhU28HH85pF5pJ8rNHlSvRMLae68dz6NrAON5USMG66wIsyqnCUM8TFd-ScPF2gIdbYf7QuA0-oYBhLdHuP-qx1gFdy2aRSC-dygPhHYSrYrhtYarrEEbos9eG7Jcyigv05l73T2Arjn9eGlZRtCwUsF4LXvdKP4VWtuHV1BCNWtdVp2bGOeSJTHm7SOofoYkThDl9z"/>
+</div>
+<div class="absolute -bottom-6 -left-6 glass-card p-6 rounded-2xl editorial-shadow border border-white/20 max-w-[240px] animate-reveal stagger-3">
+<span class="text-gold text-4xl mb-2 block font-black count-up" data-target="2.4">£0M+</span>
+<p class="text-sm font-bold text-secondary uppercase tracking-widest">Total Charity Impact Raised This Year</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Last Month's Results -->
+<section class="bg-surface-container-low py-24 mb-24">
+<div class="max-w-7xl mx-auto px-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+<div>
+<h2 class="text-4xl font-bold text-secondary mb-2">Last Month's Results</h2>
+<p class="text-on-surface-variant">Draw Date: October 31, 2024</p>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-gold" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="text-sm font-bold text-secondary tracking-widest uppercase">Verified Fair Play</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+<!-- Winning Numbers -->
+<div class="md:col-span-3 glass-card rounded-[2.5rem] p-12 editorial-shadow flex flex-col justify-center items-center md:items-start">
+<span class="text-xs font-bold text-primary tracking-[0.3em] uppercase mb-8">Winning Sequence</span>
+<div class="flex flex-wrap gap-4 md:gap-6 justify-center">
+<div class="winning-ball w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-gold flex items-center justify-center text-3xl font-black text-secondary animate-pop-in stagger-1">07</div>
+<div class="winning-ball w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-gold flex items-center justify-center text-3xl font-black text-secondary animate-pop-in stagger-2">14</div>
+<div class="winning-ball w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-gold flex items-center justify-center text-3xl font-black text-secondary animate-pop-in stagger-3">22</div>
+<div class="winning-ball w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-gold flex items-center justify-center text-3xl font-black text-secondary animate-pop-in stagger-4">31</div>
+<div class="winning-ball w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-gold flex items-center justify-center text-3xl font-black text-secondary animate-pop-in stagger-5">48</div>
+</div>
+</div>
+<!-- Prize Breakdown -->
+<div class="md:col-span-2 space-y-4">
+<div class="bg-white p-6 rounded-3xl flex justify-between items-center shadow-sm reveal-on-scroll stagger-1">
+<span class="font-bold text-secondary">Jackpot Winners</span>
+<span class="text-2xl font-black text-primary count-up" data-target="2">0</span>
+</div>
+<div class="bg-white p-6 rounded-3xl flex justify-between items-center shadow-sm reveal-on-scroll stagger-2">
+<span class="font-bold text-secondary">Charity Pot</span>
+<span class="text-2xl font-black text-tertiary">£<span class="count-up" data-target="412000">0</span></span>
+</div>
+<div class="bg-white p-6 rounded-3xl flex justify-between items-center shadow-sm reveal-on-scroll stagger-3">
+<span class="font-bold text-secondary">Next Estimated Draw</span>
+<span class="text-2xl font-black text-gold">£<span class="count-up" data-target="1.5">0</span>M</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Winners Grid -->
+<section class="max-w-7xl mx-auto px-8 mb-32">
+<div class="mb-16">
+<h2 class="text-4xl font-bold text-secondary mb-4">Past Champions</h2>
+<div class="h-1 w-24 bg-primary rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Winner Card 1 -->
+<div class="glass-card p-8 rounded-[2rem] editorial-shadow border border-white/40 group hover:-translate-y-4 transition-all duration-500 ease-out reveal-on-scroll stagger-1">
+<div class="flex justify-between items-start mb-8">
+<div class="relative">
+<div class="w-20 h-20 rounded-2xl overflow-hidden shadow-lg border-2 border-white">
+<img class="w-full h-full object-cover" data-alt="professional headshot of a smiling middle-aged man in business casual attire with a soft blurred garden background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB02BMjK0iHia78nOYa1bC8xAB2vBBrmVq-zbSDLW1vwHpeIhGsOLnbAQlb1P5tiF9UaRlmdgHiMMRNQCKWZHIFXypCBf-yKc-_B1DouBchD4n8mVrUePuZCp3-MPcseEoIzzPrOiP5F8j42vs-PYiS3tRYQ1A4rWswWA3CifTmcnUhbyIONFyKQw5bxmiBZQmFHUoPYMSe9kSc4rO8R_OxlpDq_g527HWD74l6pM5f8uCZM2VRGK59kuQyRZRi5oopDfnfNO-WhmNb"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-gold text-white p-1 rounded-lg shadow-lg">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+</div>
+<div class="text-right">
+<span class="block text-3xl font-black text-primary">£50,000</span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Grand Prize</span>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="text-xl font-bold text-secondary">Marcus Richardson</h3>
+<p class="text-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">location_on</span> Surrey, UK
+                        </p>
+</div>
+<div class="pt-6 border-t border-surface-container flex items-center justify-between">
+<div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.2em] block mb-1">Supporting</span>
+<span class="text-sm font-bold text-tertiary">Mental Health Foundation</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-lg">volunteer_activism</span>
+</div>
+</div>
+</div>
+<!-- Winner Card 2 -->
+<div class="glass-card p-8 rounded-[2rem] editorial-shadow border border-white/40 group hover:-translate-y-4 transition-all duration-500 ease-out reveal-on-scroll stagger-2">
+<div class="flex justify-between items-start mb-8">
+<div class="relative">
+<div class="w-20 h-20 rounded-2xl overflow-hidden shadow-lg border-2 border-white">
+<img class="w-full h-full object-cover" data-alt="portrait of a young woman with a confident smile, editorial style lighting with soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPPPMYwJOXwr1NVvzb5O3ic3VjRo6A7HDjKHtZf40rg8F7TP6v7-xClBiwDxzxeWzta3Mtq2mFqL1EiAn-MStdDyntMjzm3bDrLvGophLuSpBy5J8L42jnEK6rxvxWmhIG9XDBy0JBl3fvg_o_SM6EdSilLOjuwRORhh_iaBQv9BegP6QnTZL0DNj6G6JbeGxLN9vLWcbbf-jQ5ZaLCDbZbv73STt3jtvwa0cAJCwllkU5OEzG-srlJa9opuBgkVChXqOLpA7gwIBq"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-gold text-white p-1 rounded-lg shadow-lg">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+</div>
+<div class="text-right">
+<span class="block text-3xl font-black text-primary">£15,000</span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Major Draw</span>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="text-xl font-bold text-secondary">Sarah Jenkins</h3>
+<p class="text-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">location_on</span> Edinburgh, Scotland
+                        </p>
+</div>
+<div class="pt-6 border-t border-surface-container flex items-center justify-between">
+<div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.2em] block mb-1">Supporting</span>
+<span class="text-sm font-bold text-tertiary">Ocean Conservation Trust</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-lg">water_drop</span>
+</div>
+</div>
+</div>
+<!-- Winner Card 3 -->
+<div class="glass-card p-8 rounded-[2rem] editorial-shadow border border-white/40 group hover:-translate-y-4 transition-all duration-500 ease-out reveal-on-scroll stagger-3">
+<div class="flex justify-between items-start mb-8">
+<div class="relative">
+<div class="w-20 h-20 rounded-2xl overflow-hidden shadow-lg border-2 border-white">
+<img class="w-full h-full object-cover" data-alt="candid portrait of a senior man laughing, natural outdoor light, professional photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG1yGjVjW1J9s96PJrFF30FpbcYpeRqjESQaqFtoLVEnOSjdnP4CrqTOR2Pm-OwPtKhlMlWmV-oBA4UDsOiULWwLfPTkJR-NFfH99XJVKy0zlNMMtZRgCdJHnShagj_rmItu52N9rCjbsplEw4n-k1jBiaUxPeGFBmDYicDk4hv3T0xoryRRoduMzjFT_htw9Oae76bnk4Xq1igdpfiaBXtnRGcmvIe8NXGAFN0HaIrE4XpebaCG5_3F3atfq2rhnqAcBwinTDNWTT"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-gold text-white p-1 rounded-lg shadow-lg">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+</div>
+<div class="text-right">
+<span class="block text-3xl font-black text-primary">£100,000</span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Jackpot Winner</span>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="text-xl font-bold text-secondary">David Thompson</h3>
+<p class="text-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">location_on</span> Cardiff, Wales
+                        </p>
+</div>
+<div class="pt-6 border-t border-surface-container flex items-center justify-between">
+<div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.2em] block mb-1">Supporting</span>
+<span class="text-sm font-bold text-tertiary">Alzheimer's Research UK</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-lg">psychology</span>
+</div>
+</div>
+</div>
+</div>
+<!-- More Winners CTA -->
+<div class="mt-16 flex justify-center">
+<button class="flex items-center gap-2 group text-secondary font-bold">
+                    View Winner Archive 
+                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
+</button>
+</div>
+</section>
+<!-- Impact Visualizer -->
+<section class="max-w-7xl mx-auto px-8 mb-24 reveal-on-scroll">
+<div class="bg-secondary rounded-[3rem] overflow-hidden flex flex-col lg:flex-row">
+<div class="lg:w-1/2 p-12 lg:p-20 text-white flex flex-col justify-center">
+<span class="text-primary-container font-bold tracking-[0.3em] uppercase text-xs mb-6">Real Results</span>
+<h2 class="text-4xl lg:text-5xl font-black mb-8 leading-tight">Every winner builds a legacy.</h2>
+<p class="text-secondary-fixed opacity-80 mb-12 text-lg">When you win, the planet wins too. Our winners have collectively planted over 500,000 trees and funded 200+ local community sports projects.</p>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-tertiary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-white">park</span>
+</div>
+<div>
+<span class="block text-xl font-bold count-up" data-target="582400">0</span>
+<span class="text-xs uppercase tracking-widest opacity-60">Trees Planted</span>
+</div>
+</div>
+<div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-tertiary rounded-full transition-all duration-1000 w-0" data-width="75%" id="impact-bar"></div>
+</div>
+</div>
+</div>
+<div class="lg:w-1/2 min-h-[400px] overflow-hidden">
+<img class="w-full h-full object-cover animate-ken-burns" data-alt="aerial view of a lush reforestation project with thousands of young trees growing in orderly patterns" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHuKAX0OKRuMk280mO06C6w8h2UdirOfNfXKHuqANPeRz3zqI3ddVMn7GeMRupB5kQlQrsAteTmbhv8TB4louVmg4_TuSUGD_i2THztREtTBDjz5URKrxP_4AgplCJJH9_66zzy2TwAaphUWZJOs02maaGH8kV2D6hWM2p3PmCrYe9P0huvnwV2O7RoMnlAelOHOFxoKSUA_1jXQJj6JQt11sxyGjGSbYogpKTcrZWPAyTrmAGOXnPghxycYx6YyKiUxCgGygdBsc_"/>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-900 dark:bg-black w-full rounded-t-[3rem] mt-20">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-12 px-12 py-20 max-w-7xl mx-auto">
+<div class="col-span-2">
+<span class="text-2xl font-black text-white block mb-6">Play With Purpose</span>
+<p class="font-manrope text-sm text-slate-400 max-w-sm mb-8">Architecting impact through every swing. A premium platform for philanthropic golf enthusiasts.</p>
+<div class="flex space-x-4">
+<a class="text-slate-400 hover:text-orange-400 transition-colors" href="#">
+<span class="material-symbols-outlined">share</span>
+</a>
+<a class="text-slate-400 hover:text-orange-400 transition-colors" href="#">
+<span class="material-symbols-outlined">public</span>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-white font-bold mb-6">Platform</h4>
+<ul class="space-y-4">
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 transition-transform hover:translate-x-1 inline-block" href="#">Draws</a></li>
+<li><a class="font-manrope text-sm text-white font-bold hover:text-orange-400 transition-transform hover:translate-x-1 inline-block" href="#">Winners</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 transition-transform hover:translate-x-1 inline-block" href="#">Membership</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-6">Support</h4>
+<ul class="space-y-4">
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 transition-transform hover:translate-x-1 inline-block" href="#">Help Center</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 transition-transform hover:translate-x-1 inline-block" href="#">Privacy Policy</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 transition-transform hover:translate-x-1 inline-block" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-12 py-8 border-t border-white/5 text-center">
+<p class="font-manrope text-sm text-slate-400 opacity-60">© 2024 Play With Purpose. Architecting impact through every swing.</p>
+</div>
+</footer>
+<script>
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                
+                // Trigger count-up if element contains it
+                const counters = entry.target.querySelectorAll('.count-up');
+                counters.forEach(counter => animateValue(counter));
+
+                // Trigger progress bar
+                const bar = entry.target.querySelector('#impact-bar');
+                if (bar) bar.style.width = bar.dataset.width;
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+    // Count-up function
+    function animateValue(obj) {
+        const target = parseFloat(obj.getAttribute('data-target'));
+        const duration = 2000;
+        let startTimestamp = null;
+        
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            
+            let current = progress * target;
+            
+            // Format based on value type
+            if (target < 10) {
+                obj.innerText = current.toFixed(1);
+            } else if (target > 1000) {
+                obj.innerText = Math.floor(current).toLocaleString();
+            } else {
+                obj.innerText = Math.floor(current).toString().padStart(2, '0');
+            }
+            
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            } else {
+                // Ensure final value is exact
+                if (target < 10) obj.innerText = target.toFixed(1);
+                else if (target > 1000) obj.innerText = target.toLocaleString();
+                else obj.innerText = target.toString().padStart(2, '0');
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+
+    // Trigger hero animations on load
+    window.addEventListener('DOMContentLoaded', () => {
+        const heroCounter = document.querySelector('.count-up[data-target="2.4"]');
+        if (heroCounter) setTimeout(() => animateValue(heroCounter), 500);
+    });
+</script>
+</body></html>

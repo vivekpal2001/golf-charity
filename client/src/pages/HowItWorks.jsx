@@ -1,186 +1,134 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { UserPlus, CreditCard, Target, Trophy, Heart, ArrowRight, CheckCircle } from 'lucide-react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
-import AnimatedSection from '../components/ui/AnimatedSection';
-import GlassCard from '../components/ui/GlassCard';
 
-gsap.registerPlugin(ScrollTrigger);
-
-const HowItWorks = () => {
-  const timelineRef = useRef(null);
-
+function useReveal() {
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Animate timeline line
-      gsap.fromTo('.timeline-line',
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: timelineRef.current,
-            start: 'top 60%',
-            end: 'bottom 60%',
-            scrub: 1,
-          },
-        }
-      );
-
-      // Animate step dots
-      gsap.utils.toArray('.step-dot').forEach((dot) => {
-        gsap.fromTo(dot,
-          { scale: 0, opacity: 0 },
-          {
-            scale: 1,
-            opacity: 1,
-            duration: 0.5,
-            scrollTrigger: {
-              trigger: dot,
-              start: 'top 75%',
-              toggleActions: 'play none none none',
-            },
-          }
-        );
-      });
-    }, timelineRef);
-
-    return () => ctx.revert();
+    const els = document.querySelectorAll('.reveal-on-scroll');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    els.forEach(el => obs.observe(el));
+    return () => obs.disconnect();
   }, []);
+}
+
+const CARD = { background: 'rgba(30,41,59,0.6)', border: '1px solid rgba(255,255,255,0.06)' };
+
+export default function HowItWorks() {
+  useReveal();
 
   const steps = [
-    {
-      icon: UserPlus,
-      step: '01',
-      title: 'Sign Up & Subscribe',
-      desc: 'Create your account and choose a monthly (₹500) or yearly (₹5,000) plan. Select a charity you want to support.',
-      details: ['Quick email registration', 'Choose your preferred plan', 'Pick a charity close to your heart'],
-    },
-    {
-      icon: Target,
-      step: '02',
-      title: 'Enter Your Scores',
-      desc: 'After each round, submit your Stableford score (1-45). You can keep up to 5 active scores — adding a 6th removes the oldest.',
-      details: ['Scores range from 1-45', 'Maximum 5 active scores', 'Oldest auto-removed when adding 6th'],
-    },
-    {
-      icon: Trophy,
-      step: '03',
-      title: 'Monthly Draw',
-      desc: '5 winning numbers are drawn each month. If your scores match 3, 4, or all 5 numbers, you win from a prize pool funded by subscriptions.',
-      details: ['5 random numbers drawn (1-45)', '3+ matches wins a prize', 'Prize pool: 40% / 35% / 25% split'],
-    },
-    {
-      icon: CreditCard,
-      step: '04',
-      title: 'Win & Get Paid',
-      desc: 'Winners are verified, then paid out. If nobody matches all 5, the jackpot rolls over — getting bigger every month.',
-      details: ['Transparent verification process', 'Quick payouts after verification', '5-match jackpot rolls over'],
-    },
-    {
-      icon: Heart,
-      step: '05',
-      title: 'Charity Impact',
-      desc: 'At least 10% of every subscription goes directly to your chosen charity. You can increase this percentage anytime.',
-      details: ['Minimum 10% to charity', 'You choose where it goes', 'Track your impact in real-time'],
-    },
+    { num: '01', icon: 'subscriptions', title: 'Subscribe & Choose Your Charity', desc: 'Choose a monthly (₹500) or yearly (₹5,000) plan. Select one of our verified partner charities to receive a portion of your subscription.', details: ['Secure Stripe payments', 'At least 10% goes directly to charity', 'Change your charity anytime'] },
+    { num: '02', icon: 'edit_square', title: 'Play & Enter Your Scores', desc: 'Play golf as you normally would, at any course. Enter up to 5 Stableford scores (1-45) through your personal dashboard portal.', details: ['FIFO: 6th score replaces the oldest', 'Your scores = your lottery numbers', 'Enter scores anytime during the month'] },
+    { num: '03', icon: 'emoji_events', title: 'Monthly Draw & Win', desc: 'At the end of each month, 5 numbers are drawn. Match 3, 4, or all 5 of your scores to win real cash prizes.', details: ['5-match: 40% of the pool', '4-match: 35% of the pool', '3-match: 25% of the pool'] },
+  ];
+
+  const faqs = [
+    { q: 'How are winning numbers drawn?', a: 'We use a cryptographically secure random number generator from 1-45. The draw happens on the 1st of each month and results are immediately available on the Winners page.' },
+    { q: 'What happens with my charity donation?', a: 'A minimum of 10% of your subscription is sent directly to your chosen charity at the end of each billing cycle. You get a verified receipt.' },
+    { q: 'Can I change my scores after submission?', a: 'You can always add new scores. The system keeps 5 active scores; the 6th entry replaces the oldest one (FIFO).' },
+    { q: 'What are Stableford scores?', a: 'Stableford is a scoring system in golf that awards points based on hole results. Scores typically range from 1-45. You enter your total round score.' },
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--color-navy-950)' }}>
+    <>
       <Navbar />
+      <main style={{ paddingTop: '6rem', background: 'var(--surface)', color: 'var(--on-surface)' }}>
 
-      {/* Hero */}
-      <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute w-96 h-96 rounded-full" style={{ background: 'radial-gradient(circle, rgba(0,212,170,0.08), transparent 70%)', top: '5%', right: '10%' }} />
-        </div>
-        <div className="container-custom relative z-10">
-          <AnimatedSection className="text-center max-w-3xl mx-auto">
-            <span className="badge badge-emerald mb-4 inline-block">Step by Step</span>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)', color: 'white' }}>
-              How <span className="gradient-text">GolfCharity</span> Works
-            </h1>
-            <p className="text-lg" style={{ color: 'var(--color-navy-300)', lineHeight: 1.7 }}>
-              From signup to winning prizes and supporting charities — here&apos;s everything you need to know in 5 simple steps.
-            </p>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section ref={timelineRef} className="section-padding relative">
-        <div className="container-custom max-w-4xl relative">
-          {/* Timeline Line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px hidden md:block" style={{ background: 'rgba(0,212,170,0.1)' }}>
-            <div className="timeline-line absolute top-0 left-0 w-full h-full origin-top" style={{ background: 'var(--color-emerald-500)' }} />
+        {/* Hero */}
+        <section style={{ padding: '6rem 2rem 4rem', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 80px)' }} />
+          <div className="editorial-grid" style={{ maxWidth: '1280px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+            <div style={{ gridColumn: 'span 6' }} className="hiw-hero-text">
+              <span className="animate-fade-up eyebrow" style={{ animationDelay: '0.1s', background: '#ff6b35', color: '#fff', display: 'inline-block', marginBottom: '1.5rem' }}>How It Works</span>
+              <h1 className="animate-fade-up" style={{ animationDelay: '0.2s', fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800, color: '#fff', lineHeight: 1.05, marginBottom: '1.5rem' }}>Your Game.<br /><span style={{ color: '#ff6b35' }}>Their Future.</span></h1>
+              <p className="animate-fade-up" style={{ animationDelay: '0.3s', fontSize: '1.125rem', color: '#94a3b8', maxWidth: '32rem', lineHeight: 1.7, marginBottom: '2.5rem' }}>
+                We've engineered a platform where every stroke on the green translates to real-world impact. Simple mechanics, premium rewards, and a lasting legacy.
+              </p>
+              <div className="animate-fade-up" style={{ animationDelay: '0.4s', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                <Link to="/signup"><button style={{ background: '#ff6b35', color: '#fff', padding: '0.875rem 2rem', borderRadius: '9999px', fontWeight: 700, border: 'none', cursor: 'pointer', boxShadow: '0 8px 24px rgba(255,107,53,0.3)' }}>Get Started</button></Link>
+                <button style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'none', border: 'none', cursor: 'pointer', color: '#8badd4', fontWeight: 700 }}>
+                  <span className="material-symbols-outlined" style={{ border: '2px solid #8badd4', borderRadius: '50%', padding: '0.25rem' }}>play_arrow</span> Watch Process
+                </button>
+              </div>
+            </div>
+            <div style={{ gridColumn: 'span 6', display: 'flex', justifyContent: 'flex-end' }} className="hiw-hero-card">
+              <div className="animate-fade-up" style={{ animationDelay: '0.5s', ...CARD, padding: '2rem', borderRadius: '1.5rem', maxWidth: '22rem', backdropFilter: 'blur(16px)', transform: 'rotate(2deg)' }}>
+                <span className="eyebrow" style={{ marginBottom: '0.75rem', display: 'block' }}>Next Draw</span>
+                <h3 style={{ fontSize: '2rem', fontWeight: 900, color: '#8badd4', marginBottom: '0.5rem' }}>PREMIUM</h3>
+                <p style={{ color: '#94a3b8', fontSize: '0.875rem' }}>Monthly prize pool scales based on community participation.</p>
+              </div>
+            </div>
           </div>
+        </section>
 
-          <div className="space-y-20">
-            {steps.map((step, i) => (
-              <AnimatedSection key={step.step} delay={i * 0.1} direction={i % 2 === 0 ? 'left' : 'right'}>
-                <div className={`flex flex-col md:flex-row items-center gap-8 ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
-                  {/* Content */}
-                  <div className="flex-1">
-                    <GlassCard className="p-8">
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="text-sm font-bold" style={{ color: 'var(--color-emerald-500)' }}>STEP {step.step}</span>
-                      </div>
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'rgba(0,212,170,0.1)' }}>
-                          <step.icon size={24} style={{ color: 'var(--color-emerald-400)' }} />
-                        </div>
-                        <h3 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-heading)', color: 'white' }}>{step.title}</h3>
-                      </div>
-                      <p className="mb-5 text-sm" style={{ color: 'var(--color-navy-300)', lineHeight: 1.7 }}>{step.desc}</p>
-                      <ul className="space-y-2">
-                        {step.details.map(detail => (
-                          <li key={detail} className="flex items-center gap-2 text-sm" style={{ color: 'var(--color-navy-200)' }}>
-                            <CheckCircle size={14} style={{ color: 'var(--color-emerald-500)' }} />
-                            {detail}
-                          </li>
-                        ))}
-                      </ul>
-                    </GlassCard>
+        {/* Steps */}
+        <section style={{ padding: '6rem 2rem', background: 'var(--surface-container-low)' }}>
+          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+            {steps.map((s, i) => (
+              <div key={i} className="reveal-on-scroll card-premium-hover" style={{ animationDelay: `${0.1 + i * 0.15}s`, ...CARD, padding: '3rem', borderRadius: '2.5rem', marginBottom: '2rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'center' }} className2="step-card">
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+                    <div style={{ width: '4rem', height: '4rem', borderRadius: '1rem', background: 'rgba(255,107,53,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ff6b35' }}>
+                      <span className="material-symbols-outlined" style={{ fontSize: '1.75rem' }}>{s.icon}</span>
+                    </div>
+                    <span style={{ fontSize: '3rem', fontWeight: 900, color: 'rgba(255,255,255,0.06)' }}>{s.num}</span>
                   </div>
-
-                  {/* Dot */}
-                  <div className="step-dot hidden md:flex w-4 h-4 rounded-full flex-shrink-0"
-                    style={{ background: 'var(--color-emerald-500)', boxShadow: '0 0 20px rgba(0,212,170,0.4)' }} />
-
-                  {/* Spacer */}
-                  <div className="flex-1 hidden md:block" />
+                  <h3 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#fff', marginBottom: '1rem' }}>{s.title}</h3>
+                  <p style={{ fontSize: '1rem', color: '#94a3b8', lineHeight: 1.7 }}>{s.desc}</p>
                 </div>
-              </AnimatedSection>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {s.details.map((d, j) => (
+                    <div key={j} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem', borderRadius: '1rem', background: 'rgba(255,255,255,0.03)' }}>
+                      <span className="material-symbols-outlined" style={{ color: '#4ade80' }}>check_circle</span>
+                      <span style={{ fontSize: '0.875rem', color: '#cbd5e1' }}>{d}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA */}
-      <section className="section-padding">
-        <div className="container-custom">
-          <AnimatedSection className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)', color: 'white' }}>
-              Simple Enough? <span className="gradient-text">Let&apos;s Go.</span>
-            </h2>
-            <p className="text-lg mb-8" style={{ color: 'var(--color-navy-300)' }}>Join today and start making every round count.</p>
-            <Link to="/signup">
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-primary text-base py-4 px-10">
-                <span className="flex items-center gap-2">Start Playing <ArrowRight size={18} /></span>
-              </motion.button>
-            </Link>
-          </AnimatedSection>
-        </div>
-      </section>
+        {/* FAQ */}
+        <section style={{ padding: '6rem 2rem', background: 'var(--surface)' }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+            <h2 className="reveal-on-scroll" style={{ textAlign: 'center', fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight: 800, color: '#fff', marginBottom: '3rem' }}>Frequently Asked Questions</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {faqs.map((f, i) => (
+                <details key={i} className="reveal-on-scroll" style={{ animationDelay: `${0.05 * i}s`, ...CARD, padding: '1.5rem 2rem', borderRadius: '1rem', cursor: 'pointer' }}>
+                  <summary style={{ fontWeight: 700, color: '#fff', listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    {f.q}
+                    <span className="material-symbols-outlined" style={{ color: '#ff6b35' }}>expand_more</span>
+                  </summary>
+                  <p style={{ marginTop: '1rem', color: '#94a3b8', lineHeight: 1.7 }}>{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
 
+        {/* CTA */}
+        <section style={{ padding: '4rem 2rem' }}>
+          <div className="reveal-on-scroll" style={{ maxWidth: '800px', margin: '0 auto', background: 'linear-gradient(135deg, #1e3a5f, #0f2647)', borderRadius: '2rem', padding: '3rem', textAlign: 'center', border: '1px solid rgba(139,173,212,0.2)', boxShadow: '0 12px 32px rgba(0,0,0,0.3)' }}>
+            <span className="material-symbols-outlined" style={{ fontSize: '3rem', color: '#ffb59d', marginBottom: '1rem' }}>support_agent</span>
+            <h3 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#fff', marginBottom: '1rem' }}>Still Have Questions?</h3>
+            <p style={{ color: '#94a3b8', marginBottom: '2rem' }}>Our team is here to help you get started on your journey to play with purpose.</p>
+            <Link to="/about"><button style={{ background: '#ff6b35', color: '#fff', padding: '0.875rem 2rem', borderRadius: '9999px', fontWeight: 700, border: 'none', cursor: 'pointer' }}>Contact Support</button></Link>
+          </div>
+        </section>
+
+      </main>
       <Footer />
-    </div>
+      <style>{`
+        @media (max-width: 768px) {
+          .hiw-hero-text { grid-column: span 12 !important; }
+          .hiw-hero-card { grid-column: span 12 !important; justify-content: center !important; }
+          .step-card { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </>
   );
-};
-
-export default HowItWorks;
+}

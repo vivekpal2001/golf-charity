@@ -1,249 +1,158 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import gsap from 'gsap';
-import { Menu, X, Trophy, Heart, User, LogOut, Shield } from 'lucide-react';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { signOut } from '../../api/supabase';
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const navRef = useRef(null);
-  const { user, isAdmin } = useAuth();
-  const navigate = useNavigate();
+const navLinks = [
+  { label: 'Home', path: '/' },
+  { label: 'How It Works', path: '/how-it-works' },
+  { label: 'Charities', path: '/charities' },
+  { label: 'Prizes', path: '/prizes' },
+  { label: 'Winners', path: '/winners' },
+  { label: 'About', path: '/about' },
+];
+
+export default function Navbar() {
   const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (navRef.current) {
-      gsap.fromTo(navRef.current, 
-        { y: -100, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.2 }
-      );
-    }
-  }, []);
-
-  const handleSignOut = async () => {
-    await signOut();
-    navigate('/');
-  };
-
-  const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/how-it-works', label: 'How It Works' },
-    { path: '/charities', label: 'Charities' },
-  ];
-
-  const menuVariants = {
-    closed: { opacity: 0, x: '100%' },
-    open: { opacity: 1, x: 0, transition: { type: 'spring', stiffness: 300, damping: 30 } },
-  };
-
-  const linkVariants = {
-    hidden: { opacity: 0, x: 20 },
-    visible: (i) => ({
-      opacity: 1,
-      x: 0,
-      transition: { delay: i * 0.1, duration: 0.4 },
-    }),
-  };
+  const { user, signOut } = useAuth();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <nav
-      ref={navRef}
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+      className="glass-nav"
       style={{
-        background: scrolled ? 'rgba(10, 15, 28, 0.85)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(0, 212, 170, 0.1)' : '1px solid transparent',
-        padding: scrolled ? '0.75rem 0' : '1.25rem 0',
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        padding: '1rem 2rem', maxWidth: '100%',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+        backdropFilter: 'blur(20px)',
       }}
     >
-      <div className="container-custom flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <motion.div
-            whileHover={{ rotate: 15, scale: 1.1 }}
-            transition={{ type: 'spring', stiffness: 300 }}
-          >
-            <Trophy size={28} style={{ color: 'var(--color-emerald-500)' }} />
-          </motion.div>
-          <span className="text-xl font-bold" style={{ fontFamily: 'var(--font-heading)' }}>
-            <span className="gradient-text">Golf</span>
-            <span style={{ color: 'white' }}>Charity</span>
-          </span>
-        </Link>
+      {/* Brand */}
+      <Link to="/" style={{ fontSize: '1.5rem', fontWeight: 900, letterSpacing: '-0.04em', color: '#fff' }}>
+        GolfCharity
+      </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
+      {/* Desktop Links */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }} className="nav-desktop-links">
+        {navLinks.map(link => {
+          const isActive = location.pathname === link.path;
+          return (
             <Link
               key={link.path}
               to={link.path}
-              className="relative text-sm font-medium transition-colors duration-300"
               style={{
-                color: location.pathname === link.path ? 'var(--color-emerald-400)' : 'var(--color-navy-200)',
+                fontWeight: 700, letterSpacing: '-0.01em', fontSize: '0.875rem',
+                color: isActive ? '#ff6b35' : '#cbd5e1',
+                borderBottom: isActive ? '2px solid #ff6b35' : '2px solid transparent',
+                paddingBottom: '0.25rem',
+                transition: 'color 0.3s ease, border-color 0.3s ease',
+              }}
+              onMouseEnter={e => { if (!isActive) e.target.style.color = '#ff6b35'; }}
+              onMouseLeave={e => { if (!isActive) e.target.style.color = '#cbd5e1'; }}
+            >
+              {link.label}
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* Auth Buttons */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        {user ? (
+          <>
+            <Link
+              to="/dashboard"
+              style={{
+                fontWeight: 700, fontSize: '0.875rem', color: '#ffb59d',
+                transition: 'transform 0.3s ease',
               }}
             >
-              <motion.span whileHover={{ color: '#00e8bc' }}>
-                {link.label}
-              </motion.span>
-              {location.pathname === link.path && (
-                <motion.div
-                  layoutId="nav-indicator"
-                  className="absolute -bottom-1 left-0 right-0 h-0.5"
-                  style={{ background: 'var(--color-emerald-500)' }}
-                />
-              )}
+              Dashboard
             </Link>
-          ))}
-        </div>
-
-        {/* Auth Actions */}
-        <div className="hidden md:flex items-center gap-3">
-          {user ? (
-            <>
-              {isAdmin && (
-                <Link to="/admin">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium"
-                    style={{
-                      background: 'rgba(245, 166, 35, 0.15)',
-                      color: 'var(--color-gold-400)',
-                      border: '1px solid rgba(245, 166, 35, 0.3)',
-                    }}
-                  >
-                    <Shield size={16} />
-                    Admin
-                  </motion.button>
-                </Link>
-              )}
-              <Link to="/dashboard">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-secondary text-sm py-2 px-4"
-                >
-                  <User size={16} />
-                  Dashboard
-                </motion.button>
-              </Link>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleSignOut}
-                className="flex items-center gap-2 text-sm py-2 px-4 rounded-lg transition-colors"
-                style={{ color: 'var(--color-navy-300)' }}
-              >
-                <LogOut size={16} />
-              </motion.button>
-            </>
-          ) : (
-            <>
-              <Link to="/login">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="text-sm font-medium px-4 py-2 rounded-lg transition-colors"
-                  style={{ color: 'var(--color-navy-200)' }}
-                >
-                  Log In
-                </motion.button>
-              </Link>
-              <Link to="/signup">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-primary text-sm py-2 px-5"
-                >
-                  <span>Get Started</span>
-                </motion.button>
-              </Link>
-            </>
-          )}
-        </div>
+            <button
+              onClick={signOut}
+              style={{
+                background: 'transparent', border: 'none', cursor: 'pointer',
+                fontWeight: 700, fontSize: '0.875rem', color: '#cbd5e1',
+              }}
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link
+              to="/login"
+              style={{
+                fontWeight: 700, fontSize: '0.875rem', color: '#cbd5e1',
+                transition: 'transform 0.3s ease',
+              }}
+            >
+              Login
+            </Link>
+            <Link
+              to="/signup"
+              style={{
+                background: '#ff6b35', color: '#fff',
+                padding: '0.5rem 1.5rem', borderRadius: '9999px',
+                fontWeight: 700, fontSize: '0.875rem',
+                boxShadow: '0 4px 12px rgba(255,107,53,0.3)',
+                transition: 'transform 0.3s ease',
+              }}
+              onMouseEnter={e => e.target.style.transform = 'scale(1.05)'}
+              onMouseLeave={e => e.target.style.transform = 'scale(1)'}
+            >
+              Subscribe
+            </Link>
+          </>
+        )}
 
         {/* Mobile Hamburger */}
         <button
-          className="md:hidden z-50"
-          onClick={() => setIsOpen(!isOpen)}
-          style={{ color: 'white' }}
+          onClick={() => setMobileOpen(!mobileOpen)}
+          style={{
+            display: 'none', background: 'none', border: 'none', cursor: 'pointer',
+            color: '#fff', fontSize: '1.5rem',
+          }}
+          className="nav-mobile-toggle"
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          <span className="material-symbols-outlined">{mobileOpen ? 'close' : 'menu'}</span>
         </button>
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial="closed"
-            animate="open"
-            exit="closed"
-            variants={menuVariants}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8"
-            style={{
-              background: 'rgba(10, 15, 28, 0.98)',
-              backdropFilter: 'blur(20px)',
-            }}
-          >
-            {navLinks.map((link, i) => (
-              <motion.div
-                key={link.path}
-                custom={i}
-                initial="hidden"
-                animate="visible"
-                variants={linkVariants}
-              >
-                <Link
-                  to={link.path}
-                  className="text-2xl font-bold"
-                  onClick={() => setIsOpen(false)}
-                  style={{
-                    fontFamily: 'var(--font-heading)',
-                    color: location.pathname === link.path ? 'var(--color-emerald-400)' : 'white',
-                  }}
-                >
-                  {link.label}
-                </Link>
-              </motion.div>
-            ))}
-            <motion.div custom={navLinks.length} initial="hidden" animate="visible" variants={linkVariants}>
-              {user ? (
-                <div className="flex flex-col items-center gap-4">
-                  <Link to="/dashboard" onClick={() => setIsOpen(false)} className="btn-primary px-8">
-                    <span>Dashboard</span>
-                  </Link>
-                  <button onClick={() => { handleSignOut(); setIsOpen(false); }} style={{ color: 'var(--color-navy-300)' }}>
-                    Sign Out
-                  </button>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center gap-4">
-                  <Link to="/signup" onClick={() => setIsOpen(false)} className="btn-primary px-8">
-                    <span>Get Started</span>
-                  </Link>
-                  <Link to="/login" onClick={() => setIsOpen(false)} style={{ color: 'var(--color-navy-300)' }}>
-                    Log In
-                  </Link>
-                </div>
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {mobileOpen && (
+        <div
+          style={{
+            position: 'absolute', top: '100%', left: 0, right: 0,
+            background: '#0f172a',
+            padding: '1.5rem 2rem', display: 'flex', flexDirection: 'column', gap: '1rem',
+            boxShadow: '0 12px 32px rgba(0,0,0,0.3)',
+          }}
+        >
+          {navLinks.map(link => (
+            <Link
+              key={link.path}
+              to={link.path}
+              onClick={() => setMobileOpen(false)}
+              style={{
+                fontWeight: 700, fontSize: '1rem',
+                color: location.pathname === link.path ? '#ff6b35' : '#cbd5e1',
+                padding: '0.5rem 0',
+              }}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      )}
+
+      <style>{`
+        @media (max-width: 768px) {
+          .nav-desktop-links { display: none !important; }
+          .nav-mobile-toggle { display: block !important; }
+        }
+      `}</style>
     </nav>
   );
-};
-
-export default Navbar;
+}

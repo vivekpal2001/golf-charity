@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>How It Works | Play With Purpose</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "outline": "#8d7168",
+                "on-secondary-container": "#3e5980",
+                "surface-container-highest": "#e4e2de",
+                "secondary-fixed-dim": "#adc8f5",
+                "secondary-container": "#b5d0fd",
+                "surface-bright": "#fbf9f5",
+                "primary-fixed": "#ffdbd0",
+                "on-tertiary-fixed-variant": "#0e5138",
+                "on-tertiary": "#ffffff",
+                "on-error": "#ffffff",
+                "primary-fixed-dim": "#ffb59d",
+                "on-background": "#1b1c1a",
+                "primary": "#ab3500",
+                "secondary-fixed": "#d5e3ff",
+                "inverse-primary": "#ffb59d",
+                "surface-container": "#efeeea",
+                "inverse-surface": "#30312e",
+                "surface-dim": "#dbdad6",
+                "surface": "#fbf9f5",
+                "on-error-container": "#93000a",
+                "tertiary-container": "#69a687",
+                "tertiary": "#2c694e",
+                "on-primary-fixed": "#390c00",
+                "on-secondary-fixed": "#001c3b",
+                "inverse-on-surface": "#f2f0ed",
+                "on-primary-container": "#5f1900",
+                "on-secondary": "#ffffff",
+                "tertiary-fixed": "#b1f0ce",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary-fixed-variant": "#2d486d",
+                "primary-container": "#ff6b35",
+                "on-primary": "#ffffff",
+                "outline-variant": "#e1bfb5",
+                "on-tertiary-fixed": "#002114",
+                "on-surface": "#1b1c1a",
+                "error-container": "#ffdad6",
+                "surface-variant": "#e4e2de",
+                "on-tertiary-container": "#003a25",
+                "background": "#fbf9f5",
+                "surface-tint": "#ab3500",
+                "surface-container-high": "#eae8e4",
+                "tertiary-fixed-dim": "#95d4b3",
+                "surface-container-low": "#f5f3ef",
+                "on-surface-variant": "#594139",
+                "on-primary-fixed-variant": "#832600",
+                "error": "#ba1a1a",
+                "secondary": "#455f87"
+              },
+              fontFamily: {
+                "headline": ["Manrope"],
+                "body": ["Manrope"],
+                "label": ["Manrope"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+              animation: {
+                'float': 'float 6s ease-in-out infinite',
+                'fade-up': 'fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                'stripe-move': 'stripeMove 20s linear infinite',
+              },
+              keyframes: {
+                float: {
+                  '0%, 100%': { transform: 'translateY(0)' },
+                  '50%': { transform: 'translateY(-20px)' },
+                },
+                fadeUp: {
+                  '0%': { opacity: '0', transform: 'translateY(40px)' },
+                  '100%': { opacity: '1', transform: 'translateY(0)' },
+                },
+                stripeMove: {
+                  '0%': { transform: 'translateX(-50%) skewY(-12deg)' },
+                  '100%': { transform: 'translateX(0%) skewY(-12deg)' },
+                }
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0 20px 40px rgba(171, 53, 0, 0.06);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        /* Apple-style Stacking Sections */
+        .stacking-section {
+            position: sticky;
+            top: 10vh;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
+        }
+
+        /* Stripe-inspired Background */
+        .stripe-bg {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                -45deg, 
+                rgba(255,107,53,0.05) 25%, 
+                transparent 25%, 
+                transparent 50%, 
+                rgba(255,107,53,0.05) 50%, 
+                rgba(255,107,53,0.05) 75%, 
+                transparent 75%, 
+                transparent
+            );
+            background-size: 100px 100px;
+            z-index: -1;
+            transform: skewY(-12deg);
+        }
+
+        /* Reveal Animations Triggered by Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Parallax Container */
+        .parallax-wrap {
+            overflow: hidden;
+            perspective: 1000px;
+        }
+        .parallax-img {
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed overflow-x-hidden">
+<div class="stripe-bg animate-stripe-move"></div>
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md shadow-sm dark:shadow-none transition-all duration-500">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-extrabold tracking-tighter text-slate-900 dark:text-white">
+            Play With Purpose
+        </div>
+<div class="hidden md:flex items-center gap-8 font-manrope text-sm font-semibold tracking-tight">
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Home</a>
+<a class="text-orange-600 dark:text-orange-400 border-b-2 border-orange-600 pb-1" href="#">How It Works</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Prizes</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Winners</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Charity</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">About</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-600 dark:text-slate-400 text-sm font-semibold hover:opacity-80 transition-all duration-300">Log In</button>
+<button class="bg-primary-container text-white px-6 py-2 rounded-full text-sm font-semibold hover:opacity-80 transition-all duration-300 scale-95 active:scale-90">Enter Draw</button>
+</div>
+</div>
+</nav>
+<main class="pt-24">
+<!-- Hero Section -->
+<section class="relative px-8 py-20 max-w-7xl mx-auto overflow-hidden">
+<div class="grid lg:grid-cols-2 gap-16 items-center">
+<div class="z-10 animate-fade-up">
+<span class="inline-block px-4 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-xs font-bold tracking-widest uppercase mb-6 opacity-0 animate-fade-up [animation-delay:200ms]">THE BLUEPRINT</span>
+<h1 class="text-6xl md:text-8xl font-black text-secondary leading-[0.9] tracking-tighter mb-8 opacity-0 animate-fade-up [animation-delay:400ms]">
+                    Your Game.<br/><span class="text-primary">Their Future.</span>
+</h1>
+<p class="text-xl text-on-surface-variant max-w-lg leading-relaxed mb-10 opacity-0 animate-fade-up [animation-delay:600ms]">
+                    We've engineered a platform where every stroke on the green translates to real-world impact. Simple mechanics, premium rewards, and a lasting legacy.
+                </p>
+<div class="flex flex-wrap gap-4 opacity-0 animate-fade-up [animation-delay:800ms]">
+<button class="bg-primary-container text-white px-10 py-4 rounded-full font-bold editorial-shadow hover:translate-y-[-2px] transition-transform active:scale-95">Get Started</button>
+<button class="flex items-center gap-2 px-8 py-4 rounded-full font-bold text-secondary hover:bg-surface-container-high transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">play_circle</span>
+                        Watch Process
+                    </button>
+</div>
+</div>
+<div class="relative animate-fade-up [animation-delay:400ms]">
+<div class="absolute -top-20 -right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float"></div>
+<div class="parallax-wrap rounded-[3rem] editorial-shadow">
+<img alt="Premium Golf Experience" class="parallax-img w-full aspect-[4/5] object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Close-up of a premium white golf ball sitting on a wooden tee with a blurred high-end golf course in the background, soft morning light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuRHL8z7WQ1Nha5r9z8IDDBgOPg7Y4ZvHNVp6MB4N_TDL_KuJvdKe_3MoLCRqtwEMT3Okan95-zX_0mBEay9Q4zdJ8YrQSxJ4MyU-kA4Sknf-XrremWHZbTUfWqx85V0tJidGnYAvg3EDF_wR1Lf3Jrxw-H0d5EdRPAn2TAQY17pbb37lut8cD4vGu16gUrNG-JHX7WT5SVDL18GuIopOSgvR798mMul0x5l1J7fDKZjseXa1hteuu4dVKLQh-sDoYwKPtDLHL8Cj-"/>
+</div>
+<!-- Floating Prize Card Overlay -->
+<div class="absolute -bottom-10 -left-10 glass-panel p-8 rounded-[2rem] editorial-shadow max-w-xs border border-white/20 animate-float [animation-delay:1s]">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-[#F7B801] flex items-center justify-center text-white">
+<span class="material-symbols-outlined">workspace_premium</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">NEXT DRAW</p>
+<p class="font-black text-secondary">₹15,00,000</p>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant italic">"Architecture of a winner starts with a single subscription."</p>
+</div>
+</div>
+</div>
+</section>
+<!-- The Three Step Process - Stacking Section -->
+<section class="relative py-24 space-y-[40vh]">
+<!-- Step 1: Subscribe -->
+<div class="stacking-section px-8 max-w-6xl mx-auto" style="z-index: 1;">
+<div class="bg-white rounded-[3rem] editorial-shadow overflow-hidden grid md:grid-cols-2 w-full min-h-[500px] border border-surface-container">
+<div class="p-12 md:p-20 flex flex-col justify-center">
+<span class="text-primary font-black text-6xl mb-6">01.</span>
+<h2 class="text-4xl font-extrabold text-secondary mb-6 tracking-tight">Subscribe to Impact</h2>
+<p class="text-lg text-on-surface-variant leading-relaxed mb-8">
+                        Join our community for just <span class="font-bold text-primary">₹500 per month</span>. This isn't just a fee; it's your entry into an exclusive ecosystem of philanthropic golfers.
+                    </p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 text-secondary font-medium">
+<span class="material-symbols-outlined text-tertiary">check_circle</span>
+                            Monthly entry into all prize draws
+                        </li>
+<li class="flex items-center gap-3 text-secondary font-medium">
+<span class="material-symbols-outlined text-tertiary">check_circle</span>
+                            Exclusive partner discounts
+                        </li>
+</ul>
+</div>
+<div class="bg-surface-container-low relative overflow-hidden">
+<img alt="Golf Lifestyle" class="parallax-img w-full h-full object-cover opacity-80" data-alt="Minimalist top-down view of a luxury credit card and a single gold-colored golf tee on a clean cream-colored surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDQGL-oKTaM9joGZskiInbqOzI0noHjY2VJtT0NHznWzplh2R8Wffrmk0urO2xGDzujC7bEYnoJsDALJs-IYni7MLJrqpFyaZtw7rV66vC3xbGX4jzU-DFIJB_MW2u59upLmlUryzqBqvkIbY_R6s7UZF3UU3X4zs2fW7csmqNgbkR7RjC2hiOvqyh1j_-p5XHoU_r-bsasx75kB_1etyco-vU1Roe2VeYWlawuOW3VBCcIp6Du_X9Gs3jsvyVl11rkRU_nUo63aZe"/>
+</div>
+</div>
+</div>
+<!-- Step 2: Enter Scores -->
+<div class="stacking-section px-8 max-w-6xl mx-auto" style="z-index: 2;">
+<div class="bg-secondary text-white rounded-[3rem] editorial-shadow overflow-hidden grid md:grid-cols-2 w-full min-h-[500px]">
+<div class="p-12 md:p-20 flex flex-col justify-center md:order-2">
+<span class="text-primary-container font-black text-6xl mb-6">02.</span>
+<h2 class="text-4xl font-extrabold mb-6 tracking-tight">Log Your Performance</h2>
+<p class="text-lg text-secondary-fixed-dim leading-relaxed mb-8">
+                        Upload your scorecard via our portal. We use the <span class="font-bold text-white">Stableford Scoring System</span> to ensure fair play and competitive integrity across all handicap levels.
+                    </p>
+<div class="bg-white/10 p-6 rounded-2xl backdrop-blur-sm reveal">
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-bold tracking-widest uppercase">Verified Scorecard</span>
+<span class="text-primary-container material-symbols-outlined">verified</span>
+</div>
+<div class="h-2 w-full bg-white/20 rounded-full">
+<div class="h-full w-3/4 bg-primary-container rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="bg-slate-800 relative flex items-center justify-center md:order-1 overflow-hidden">
+<img alt="Scoring Interface" class="parallax-img w-full h-full object-cover mix-blend-overlay opacity-50" data-alt="3D render of a digital interface showing golf statistics and points, floating over a blurred dark green background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3O8ozI6lfzZ2D1Zay28-j8M1Yr8TNCiRgRZiKjyZ7CcSE6oov0XJuhc1eyAiHrHKDACAVDyURaT1UJnVz0QzIv6RHRYNpg5U7a-1irmCkGgqHeZLuLxvkd3K8Lstn_5sVGU9KfKoSucyPqOCbj_HOYm6fkhBEKyPIhVYUJBuWBlo3GpxvKO6ruN3SyJ2A7yXL36QTVcs0FauMeTTPwE6r1rHvzFtIrz1QSjYMrQq4oddeFOxAPU1WH8cnxBbouWsr9H4XVFiYRJrX"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="p-10 rounded-full border border-white/30 animate-float">
+<span class="material-symbols-outlined text-6xl">track_changes</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 3: Win & Impact -->
+<div class="stacking-section px-8 max-w-6xl mx-auto" style="z-index: 3;">
+<div class="bg-[#F7B801] text-secondary rounded-[3rem] editorial-shadow overflow-hidden grid md:grid-cols-2 w-full min-h-[500px]">
+<div class="p-12 md:p-20 flex flex-col justify-center">
+<span class="text-white font-black text-6xl mb-6">03.</span>
+<h2 class="text-4xl font-extrabold mb-6 tracking-tight">Win &amp; Build Legacy</h2>
+<p class="text-lg text-on-secondary-fixed-variant leading-relaxed mb-8">
+                        The top scorers enter the monthly grand draw. Winners walk away with life-changing prizes, while 30% of all subscription proceeds fund local youth education and golf development programs.
+                    </p>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-white/30 p-4 rounded-xl reveal [transition-delay:100ms]">
+<p class="text-2xl font-black">70%</p>
+<p class="text-xs font-bold uppercase tracking-tight">Prize Pool</p>
+</div>
+<div class="bg-white/30 p-4 rounded-xl reveal [transition-delay:200ms]">
+<p class="text-2xl font-black text-tertiary">30%</p>
+<p class="text-xs font-bold uppercase tracking-tight text-tertiary">Charity</p>
+</div>
+</div>
+</div>
+<div class="bg-white/20 relative overflow-hidden">
+<img alt="Impact" class="parallax-img w-full h-full object-cover" data-alt="Sun setting over a beautiful green landscape where children are laughing and learning to play golf, editorial high-end travel style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_HeY8YcX2Hp51FSWcw4PKoIwJ8W8u0gIRCN5hTYXaHXjHzTMgKvDSURqUqWQjeXS9D7nAWMMbtVgqaG8E_0GBe-mezKTt2G0hnV90P55NG6XCZitsENMohDAQnJsZAKqqJPfvKVnivo23kjKPzJ3pmZ4QenznQRYOyZ7M_lt0ZI2Q3VnzEYwk5yqKulXYk9hnOyqNd3z9u3-0g4_Ym9OxRcaAz6m-e-lYCnGzyfz68KSDbx9mNiiFHFMd1UszRTIJuU-LvhMTlqoS"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Impact Counter Section -->
+<section class="bg-surface-container-low py-32 mt-24 relative overflow-hidden">
+<div class="max-w-7xl mx-auto px-8 relative z-10">
+<div class="text-center mb-20 reveal">
+<span class="text-tertiary font-bold tracking-[0.2em] uppercase text-xs">MEASURING SUCCESS</span>
+<h2 class="text-5xl font-black text-secondary mt-4 tracking-tighter">Architecture of Impact</h2>
+</div>
+<div class="grid md:grid-cols-3 gap-12">
+<div class="text-center reveal [transition-delay:100ms]">
+<p class="text-6xl font-black text-primary mb-4">₹4.2M</p>
+<p class="text-on-surface-variant font-medium">Raised for Education</p>
+</div>
+<div class="text-center reveal [transition-delay:200ms]">
+<p class="text-6xl font-black text-secondary mb-4">1,250</p>
+<p class="text-on-surface-variant font-medium">Active Club Members</p>
+</div>
+<div class="text-center reveal [transition-delay:300ms]">
+<p class="text-6xl font-black text-tertiary mb-4">45+</p>
+<p class="text-on-surface-variant font-medium">Youth Programs Funded</p>
+</div>
+</div>
+<!-- Charity Progress Bar -->
+<div class="mt-24 max-w-4xl mx-auto bg-surface-container-lowest p-8 rounded-3xl editorial-shadow reveal [transition-delay:400ms]">
+<div class="flex justify-between items-end mb-6">
+<div>
+<h3 class="text-xl font-bold text-secondary">Current Goal: The Academy Build</h3>
+<p class="text-sm text-on-surface-variant">Funding a new golf facility for underprivileged youth in Mumbai</p>
+</div>
+<p class="text-2xl font-black text-tertiary">₹8,40,000 / ₹1,200,000</p>
+</div>
+<div class="w-full h-6 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full w-[70%] bg-tertiary rounded-full relative">
+<div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ / Bento Grid Section -->
+<section class="py-32 px-8 max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto">
+<div class="md:col-span-2 bg-white p-12 rounded-[2.5rem] border border-surface-container reveal">
+<h3 class="text-3xl font-extrabold text-secondary mb-6">Common Inquiries</h3>
+<div class="space-y-6">
+<details class="group border-b border-surface-container pb-4">
+<summary class="flex justify-between items-center cursor-pointer list-none font-bold text-secondary text-lg">
+                            What is Stableford Scoring?
+                            <span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<p class="mt-4 text-on-surface-variant leading-relaxed">Stableford is a scoring system in golf which, rather than counting the total number of strokes taken, involves scoring points based on the number of strokes taken at each hole. This levels the playing field for players of all abilities.</p>
+</details>
+<details class="group border-b border-surface-container pb-4">
+<summary class="flex justify-between items-center cursor-pointer list-none font-bold text-secondary text-lg">
+                            How are winners selected?
+                            <span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<p class="mt-4 text-on-surface-variant leading-relaxed">The top 20% of scorers each month are entered into a digital grand draw, which is audited and live-streamed for transparency.</p>
+</details>
+</div>
+</div>
+<div class="bg-primary text-white p-12 rounded-[2.5rem] flex flex-col justify-between reveal [transition-delay:100ms] group hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined text-4xl animate-float">contact_support</span>
+<div>
+<h4 class="text-xl font-bold mb-2">Need Help?</h4>
+<p class="text-primary-fixed text-sm mb-6">Our concierge is available 24/7 for premium members.</p>
+<button class="bg-white text-primary px-6 py-3 rounded-full font-bold text-sm w-full transition-all hover:bg-primary-fixed">Chat with us</button>
+</div>
+</div>
+<div class="bg-secondary text-white p-12 rounded-[2.5rem] flex items-center justify-center text-center reveal [transition-delay:200ms] hover:scale-[1.02] transition-transform">
+<div>
+<span class="text-5xl font-black block mb-2 tracking-tighter">₹500</span>
+<p class="text-secondary-fixed text-sm uppercase font-bold tracking-widest">Single Fixed Price</p>
+</div>
+</div>
+<div class="md:col-span-2 bg-surface-container-high p-12 rounded-[2.5rem] flex flex-wrap items-center justify-between gap-6 reveal [transition-delay:300ms]">
+<div class="max-w-sm">
+<h4 class="text-2xl font-bold text-secondary mb-2">Join the Movement</h4>
+<p class="text-on-surface-variant">Ready to architect your impact through the game you love?</p>
+</div>
+<button class="bg-primary-container text-white px-10 py-4 rounded-full font-bold editorial-shadow hover:translate-x-2 transition-transform">Start Subscribing</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full rounded-t-[3rem] mt-20 bg-slate-900 dark:bg-black relative overflow-hidden">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-12 px-12 py-20 max-w-7xl mx-auto relative z-10">
+<div class="col-span-2 md:col-span-1">
+<div class="text-2xl font-black text-white mb-6">Play With Purpose</div>
+<p class="font-manrope text-sm text-slate-400 leading-relaxed">
+                Architecting impact through every swing. A modern movement for the philanthropic golfer.
+            </p>
+</div>
+<div>
+<h5 class="text-white font-bold mb-6">Platform</h5>
+<ul class="space-y-4 font-manrope text-sm text-slate-400">
+<li><a class="hover:text-orange-400 hover:translate-x-1 transition-all duration-200 block" href="#">How It Works</a></li>
+<li><a class="hover:text-orange-400 hover:translate-x-1 transition-all duration-200 block" href="#">Prize Pool</a></li>
+<li><a class="hover:text-orange-400 hover:translate-x-1 transition-all duration-200 block" href="#">Leaderboard</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-white font-bold mb-6">Charity</h5>
+<ul class="space-y-4 font-manrope text-sm text-slate-400">
+<li><a class="hover:text-orange-400 hover:translate-x-1 transition-all duration-200 block" href="#">Our Partners</a></li>
+<li><a class="hover:text-orange-400 hover:translate-x-1 transition-all duration-200 block" href="#">Impact Reports</a></li>
+<li><a class="hover:text-orange-400 hover:translate-x-1 transition-all duration-200 block" href="#">Success Stories</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-white font-bold mb-6">Support</h5>
+<ul class="space-y-4 font-manrope text-sm text-slate-400">
+<li><a class="hover:text-orange-400 hover:translate-x-1 transition-all duration-200 block" href="#">Help Center</a></li>
+<li><a class="hover:text-orange-400 hover:translate-x-1 transition-all duration-200 block" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-orange-400 hover:translate-x-1 transition-all duration-200 block" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-white/5 py-8 text-center relative z-10">
+<p class="font-manrope text-xs text-slate-500">© 2024 Play With Purpose. Architecting impact through every swing.</p>
+</div>
+</footer>
+<script>
+    // Reveal Animations on Scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Stacking Scroll Scaling Effect
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('.stacking-section');
+        sections.forEach((section, index) => {
+            const rect = section.getBoundingClientRect();
+            const progress = Math.max(0, Math.min(1, -rect.top / window.innerHeight));
+            
+            if (index < sections.length - 1 && rect.top < 0) {
+                const scale = 1 - (progress * 0.05);
+                const opacity = 1 - (progress * 0.5);
+                section.style.transform = `scale(${scale})`;
+                section.style.opacity = opacity;
+            } else {
+                section.style.transform = `scale(1)`;
+                section.style.opacity = 1;
+            }
+        });
+
+        // Parallax Effect
+        const parallaxImgs = document.querySelectorAll('.parallax-img');
+        parallaxImgs.forEach(img => {
+            const scrollPos = window.pageYOffset;
+            const elementTop = img.parentElement.offsetTop;
+            const yPos = (scrollPos - elementTop) * 0.1;
+            img.style.transform = `translateY(${yPos}px) scale(1.1)`;
+        });
+
+        // Navbar blur intensity on scroll
+        const nav = document.querySelector('nav');
+        if (window.scrollY > 50) {
+            nav.classList.add('py-2', 'bg-white/90');
+            nav.classList.remove('py-4', 'bg-white/70');
+        } else {
+            nav.classList.add('py-4', 'bg-white/70');
+            nav.classList.remove('py-2', 'bg-white/90');
+        }
+    });
+</script>
+</body></html>

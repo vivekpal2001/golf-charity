@@ -145,7 +145,9 @@ const SubscriptionCard = ({ subscription, loading, user }) => {
                 disabled={processingPlan !== null}
                 className="btn-primary py-2 px-6 text-sm flex items-center justify-center min-w-[120px]"
               >
-                {processingPlan === 'monthly' ? <Loader2 size={16} className="animate-spin" /> : 'Select'}
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  {processingPlan === 'monthly' ? <Loader2 size={16} className="animate-spin" /> : 'Select'}
+                </span>
               </button>
             </div>
           </div>
@@ -168,7 +170,9 @@ const SubscriptionCard = ({ subscription, loading, user }) => {
                 disabled={processingPlan !== null}
                 className="btn-primary py-2 px-6 text-sm flex items-center justify-center min-w-[120px]"
               >
-                {processingPlan === 'yearly' ? <Loader2 size={16} className="animate-spin" /> : 'Select'}
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  {processingPlan === 'yearly' ? <Loader2 size={16} className="animate-spin" /> : 'Select'}
+                </span>
               </button>
             </div>
           </div>

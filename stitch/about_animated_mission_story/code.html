@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About Us | Play With Purpose</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline": "#8d7168",
+              "on-secondary-container": "#3e5980",
+              "surface-container-highest": "#e4e2de",
+              "secondary-fixed-dim": "#adc8f5",
+              "secondary-container": "#b5d0fd",
+              "surface-bright": "#fbf9f5",
+              "primary-fixed": "#ffdbd0",
+              "on-tertiary-fixed-variant": "#0e5138",
+              "on-tertiary": "#ffffff",
+              "on-error": "#ffffff",
+              "primary-fixed-dim": "#ffb59d",
+              "on-background": "#1b1c1a",
+              "primary": "#ab3500",
+              "secondary-fixed": "#d5e3ff",
+              "inverse-primary": "#ffb59d",
+              "surface-container": "#efeeea",
+              "inverse-surface": "#30312e",
+              "surface-dim": "#dbdad6",
+              "surface": "#fbf9f5",
+              "on-error-container": "#93000a",
+              "tertiary-container": "#69a687",
+              "tertiary": "#2c694e",
+              "on-primary-fixed": "#390c00",
+              "on-secondary-fixed": "#001c3b",
+              "inverse-on-surface": "#f2f0ed",
+              "on-primary-container": "#5f1900",
+              "on-secondary": "#ffffff",
+              "tertiary-fixed": "#b1f0ce",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed-variant": "#2d486d",
+              "primary-container": "#ff6b35",
+              "on-primary": "#ffffff",
+              "outline-variant": "#e1bfb5",
+              "on-tertiary-fixed": "#002114",
+              "on-surface": "#1b1c1a",
+              "error-container": "#ffdad6",
+              "surface-variant": "#e4e2de",
+              "on-tertiary-container": "#003a25",
+              "background": "#fbf9f5",
+              "surface-tint": "#ab3500",
+              "surface-container-high": "#eae8e4",
+              "tertiary-fixed-dim": "#95d4b3",
+              "surface-container-low": "#f5f3ef",
+              "on-surface-variant": "#594139",
+              "on-primary-fixed-variant": "#832600",
+              "error": "#ba1a1a",
+              "secondary": "#455f87"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0 20px 40px rgba(171, 53, 0, 0.06);
+        }
+        .mesh-gradient {
+            background-color: #fbf9f5;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(255, 107, 53, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(69, 95, 135, 0.05) 0px, transparent 50%);
+        }
+        
+        /* Storytelling Animations */
+        @keyframes revealUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes revealScale {
+            from { opacity: 0; transform: scale(0.9) rotate(5deg); }
+            to { opacity: 1; transform: scale(1.05) rotate(3deg); }
+        }
+        
+        .animate-hero-text { animation: revealUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+        .animate-hero-image { opacity: 0; animation: revealScale 1.2s cubic-bezier(0.23, 1, 0.32, 1) 0.4s forwards; }
+        
+        .scroll-reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); }
+        .scroll-reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .timeline-point { transform: scale(0); transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .timeline-point.active { transform: scale(1); }
+        
+        .timeline-content { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+        .timeline-content.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed-variant">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-extrabold tracking-tighter text-slate-900">Play With Purpose</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-manrope text-sm font-semibold tracking-tight text-slate-600 hover:text-slate-900 transition-colors" href="#">Home</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-slate-600 hover:text-slate-900 transition-colors" href="#">How It Works</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-slate-600 hover:text-slate-900 transition-colors" href="#">Prizes</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-slate-600 hover:text-slate-900 transition-colors" href="#">Winners</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-slate-600 hover:text-slate-900 transition-colors" href="#">Charity</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-orange-600 border-b-2 border-orange-600 pb-1" href="#">About</a>
+</div>
+<div class="flex gap-4 items-center">
+<button class="text-slate-600 font-manrope text-sm font-semibold hover:opacity-80 transition-all scale-95 active:scale-90">Log In</button>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-manrope text-sm font-semibold hover:opacity-80 transition-all scale-95 active:scale-90 shadow-lg shadow-primary/20">Enter Draw</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative pt-32 pb-20 px-8 overflow-hidden mesh-gradient">
+<div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+<div class="relative z-10 animate-hero-text">
+<span class="inline-block text-primary font-bold tracking-[0.2em] text-xs uppercase mb-6">Our Journey</span>
+<h1 class="text-6xl md:text-8xl font-black text-secondary leading-[0.9] tracking-tighter mb-8">
+                Architecting <span class="text-primary-container">Impact</span> through every swing.
+            </h1>
+<p class="text-lg text-on-surface-variant max-w-md mb-10 leading-relaxed">
+                We've reimagined the intersection of high-stakes play and philanthropic progress. Welcome to the new standard of purposeful competition.
+            </p>
+</div>
+<div class="relative animate-hero-image">
+<div class="w-full aspect-square rounded-[3rem] overflow-hidden shadow-2xl rotate-3 scale-105">
+<img alt="Premium golf" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIe6FoprlivQXQe9JE6x1wPpJG6soKGeHcLM371GjSbF6LMUjAvqlzmRCqinQ0WJRfk6wLlYpTlT5zC_m6kt7cjaFKbTdEI--HNSyXswuhbOYSYKJtjECdnMpOsZDBZ3Kd0lnsfbs9sVtpn2DbkwSipSjhcXQQrkkiiGXBgrNHV762NshFlMJR_FinQ_MYEoTnPctRSXbzJYTjX2Bwbn4wZ-0l1WU3PbrqSCFWpKmlaPMQ2ZpYXsoVLm5R8SiIH6M5WFGOrTNQEFa9"/>
+</div>
+<div class="absolute -bottom-10 -left-10 bg-surface-container-lowest p-8 rounded-3xl shadow-xl max-w-xs -rotate-3 border border-outline-variant/10">
+<span class="material-symbols-outlined text-tertiary text-4xl mb-4" data-icon="auto_awesome">auto_awesome</span>
+<p class="text-sm font-medium text-secondary">"A movement that turned my passion for the game into real-world change."</p>
+<p class="text-xs text-on-surface-variant mt-2">— Platform Member #1024</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Why We Started Narrative -->
+<section class="py-24 px-8 bg-surface-container-low">
+<div class="max-w-4xl mx-auto scroll-reveal">
+<h2 class="text-4xl font-bold text-secondary mb-12 tracking-tight">Why We Started</h2>
+<div class="space-y-8 text-xl leading-relaxed text-on-surface-variant font-light">
+<p>
+                It began with a simple observation: the energy on the 18th hole is one of the most powerful forces in sport. We asked ourselves, <span class="text-secondary font-semibold italic">"What if that energy didn't end at the clubhouse?"</span>
+</p>
+<p>
+                Play With Purpose was founded to bridge the gap between high-performance lifestyle and community stewardship. We didn't want to create another charity tournament; we wanted to build a <span class="text-primary font-medium">digital-first philanthropic engine</span> that scales with the passion of its members.
+            </p>
+<div class="pt-8 border-t border-outline-variant/20 flex items-center gap-6">
+<div class="w-16 h-16 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Founder" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC22SARjFBTQL_AxeiUgrdyVE8Ej0XkzzxtIE5adasU0vK4tCUe8aig60aE98ZXkhWTluo-Bm1dM_3YNgUQ42YkjH1XjteDIbDS0Iau8mV_aZL51yo28r8sF3_mClwEoDgVC8iLrDe8LAvcOelyzo9boOPU5108KHxR7w0x14vUvNt00HrXBcRqKQEQsAFfVe-5Y_00ir8rOoIcrrHWUnK20p-vgQoYLQWpbQYp1MRK9Yv360ud8f5UHBY26SzN0YRl6hTodh3P53Cq"/>
+</div>
+<div>
+<p class="font-bold text-secondary uppercase tracking-widest text-xs">A Message from our Founder</p>
+<p class="text-on-surface italic">"We play for the game, we stay for the impact."</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Our Mission Bento Grid -->
+<section class="py-32 px-8 bg-surface">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+<div class="max-w-2xl">
+<h2 class="text-5xl font-black text-primary-container leading-tight mb-4">Our Mission</h2>
+<p class="text-on-surface-variant text-lg">We define our success through three foundational pillars that guide every decision we make.</p>
+</div>
+<div class="flex gap-4">
+<div class="w-12 h-1 bg-primary-container rounded-full"></div>
+<div class="w-12 h-1 bg-surface-container-highest rounded-full"></div>
+</div>
+</div>
+<div class="grid md:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-10 rounded-[2.5rem] editorial-shadow border border-outline-variant/5 scroll-reveal">
+<div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="diversity_3">diversity_3</span>
+</div>
+<h3 class="text-2xl font-bold text-secondary mb-4">Democratizing Giving</h3>
+<p class="text-on-surface-variant leading-relaxed">Lowering the barrier to entry for meaningful philanthropy through gamified engagement and collective action.</p>
+</div>
+<!-- Card 2 -->
+<div class="bg-secondary p-10 rounded-[2.5rem] text-white editorial-shadow md:mt-4 scroll-reveal" style="transition-delay: 150ms;">
+<div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="insights">insights</span>
+</div>
+<h3 class="text-2xl font-bold mb-4">Transparent Impact</h3>
+<p class="text-white/80 leading-relaxed">Utilizing data-driven reporting to show exactly how every dollar from every draw translates into community growth.</p>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-10 rounded-[2.5rem] editorial-shadow border border-outline-variant/5 md:mt-8 scroll-reveal" style="transition-delay: 300ms;">
+<div class="w-14 h-14 rounded-2xl bg-tertiary/10 flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-tertiary text-3xl" data-icon="energy_savings_leaf">energy_savings_leaf</span>
+</div>
+<h3 class="text-2xl font-bold text-secondary mb-4">Sustainable Play</h3>
+<p class="text-on-surface-variant leading-relaxed">Partnering with eco-conscious courses and organizations to ensure the future of the sports we love is protected.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Timeline of Growth -->
+<section class="py-32 px-8 bg-surface-container-low overflow-hidden">
+<div class="max-w-7xl mx-auto">
+<h2 class="text-4xl font-black text-secondary mb-20 text-center uppercase tracking-tighter">The Evolution</h2>
+<div class="relative">
+<!-- Timeline Line -->
+<div class="absolute top-1/2 left-0 w-full h-[2px] bg-outline-variant/20 hidden md:block"></div>
+<div class="grid md:grid-cols-4 gap-12 relative z-10">
+<!-- Milestone 1 -->
+<div class="relative group">
+<div class="timeline-point w-6 h-6 rounded-full bg-primary-container mx-auto mb-6 outline outline-8 outline-white hidden md:block group-hover:scale-125 transition-transform"></div>
+<div class="timeline-content text-center md:text-left">
+<span class="font-black text-primary text-4xl block mb-2 opacity-20">2021</span>
+<h4 class="font-bold text-secondary text-lg mb-2">The Spark</h4>
+<p class="text-sm text-on-surface-variant">Founded in a small clubhouse with a vision for digital philanthropy.</p>
+</div>
+</div>
+<!-- Milestone 2 -->
+<div class="relative group md:mt-24">
+<div class="timeline-point w-6 h-6 rounded-full bg-secondary mx-auto mb-6 outline outline-8 outline-white hidden md:block group-hover:scale-125 transition-transform"></div>
+<div class="timeline-content text-center md:text-left">
+<span class="font-black text-primary text-4xl block mb-2 opacity-20">2022</span>
+<h4 class="font-bold text-secondary text-lg mb-2">First Major Draw</h4>
+<p class="text-sm text-on-surface-variant">Surpassed $100k in charitable donations in a single weekend event.</p>
+</div>
+</div>
+<!-- Milestone 3 -->
+<div class="relative group">
+<div class="timeline-point w-6 h-6 rounded-full bg-tertiary mx-auto mb-6 outline outline-8 outline-white hidden md:block group-hover:scale-125 transition-transform"></div>
+<div class="timeline-content text-center md:text-left">
+<span class="font-black text-primary text-4xl block mb-2 opacity-20">2023</span>
+<h4 class="font-bold text-secondary text-lg mb-2">Expansion</h4>
+<p class="text-sm text-on-surface-variant">Launched the mobile app and expanded to 15 international partner charities.</p>
+</div>
+</div>
+<!-- Milestone 4 -->
+<div class="relative group md:mt-24">
+<div class="timeline-point w-6 h-6 rounded-full bg-primary-container mx-auto mb-6 outline outline-8 outline-white hidden md:block group-hover:scale-125 transition-transform"></div>
+<div class="timeline-content text-center md:text-left">
+<span class="font-black text-primary text-4xl block mb-2 opacity-20">2024</span>
+<h4 class="font-bold text-secondary text-lg mb-2">The Movement</h4>
+<p class="text-sm text-on-surface-variant">A community of 50k+ players architecting impact daily.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials / Community Section -->
+<section class="py-32 px-8 bg-surface">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-20 scroll-reveal">
+<span class="inline-block px-4 py-1 bg-primary/5 text-primary text-xs font-bold tracking-widest uppercase rounded-full mb-4">Testimonials</span>
+<h2 class="text-5xl font-black text-secondary tracking-tighter">Meet the Community</h2>
+</div>
+<div class="grid md:grid-cols-2 gap-8">
+<div class="bg-surface-container-lowest p-12 rounded-[3rem] editorial-shadow flex flex-col justify-between scroll-reveal">
+<div>
+<span class="material-symbols-outlined text-primary-container text-5xl mb-6" data-icon="format_quote">format_quote</span>
+<p class="text-2xl text-secondary font-medium leading-snug mb-8">"Finally, a platform that understands why we love the game and gives us a reason to love it even more. The prizes are incredible, but the impact is real."</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="Member" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxgpSfD2f8kXTluN4AUfB7RfF8iQeyTN0AZbYiUvGL-OFd-6vyHtDzOs2BBrP1Mi3G0_mssPluitLWr73sEpLTLjDxBiNE390CvUiwysGT0JEHPYRl5uZpotmkIwojpZwGCur0dot0xN9N2D57Kvfki4hlnlxi7XPM_ggN1atDeyiadClG6tPA_1IYlwXiJtZHSXCZr4ZbrC90Yz7QHEyEq_xrswyV-A8VJ3ah2tK6hmlHRZOPMASZtBkHkvN0Rkby_SyrRBICo03v"/>
+</div>
+<div>
+<p class="font-bold text-secondary">David R.</p>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest">Executive Member</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-12 rounded-[3rem] editorial-shadow flex flex-col justify-between md:mt-12 scroll-reveal" style="transition-delay: 200ms;">
+<div>
+<span class="material-symbols-outlined text-primary-container text-5xl mb-6" data-icon="format_quote">format_quote</span>
+<p class="text-2xl text-secondary font-medium leading-snug mb-8">"I've seen the work Play With Purpose does firsthand. They don't just write checks; they architect solutions for real community problems."</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="Charity Partner" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQQtXhrNwP98J6BQqphtQTvJRJyN6AjBpfABFHlJvA40bG-QLCNcfffWF-lr5U2b9xZCEsTVQgxJFAPHRqUkl0WETOitqm2lzdg4gB4k3N4g7XsWmfVqS7cOjunb5xRStNZ0vGoMk8HaTp61uwzs_kvnkY3_FOa7IdDmEtYbLPkziu-0hXcAeN0ofzoM7H7LV3F5it7n7mjrbjEMGgQKSG2X3f5lpC_f-VyQ53_GLWeX1NiokjOrXr9sMVxBoEm1jehlQl2S9-UdNK"/>
+</div>
+<div>
+<p class="font-bold text-secondary">Sarah L.</p>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest">Global Outreach Partner</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Impact Stats Section -->
+<section class="py-24 px-8 bg-secondary text-white relative overflow-hidden">
+<div class="absolute inset-0 opacity-10">
+<img alt="Texture" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADZ2nqQ5b_Egaq7x4LdvJoECQSqjj6x1ZYK-9etC1IhRRi-muLhFZapz3_-Euz6mSeR-Li6mBuRnR22Q42RPkwSWdodpbZKPmqorP1FeOv_kfg1BRvQiUxfXcus_QBzMA-Kz0NrR8Mb5JdbMdlqtQDFGAlAnVCgmG34A7juCF77PRJMlEL65FHcDzljZnZs0kSXKmlLgXLihxDCcHf-52zvySMvDgCr5mafNVPkqHVVEWDZIcqPa3Z-6yFlVdzdMRjqJOy3XcEqqic"/>
+</div>
+<div class="max-w-7xl mx-auto relative z-10 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+<div>
+<p class="text-primary-container text-5xl font-black mb-2 impact-number" data-prefix="$" data-suffix="M+" data-target="2400000">$0</p>
+<p class="text-secondary-fixed text-xs font-bold uppercase tracking-widest">Total Raised</p>
+</div>
+<div>
+<p class="text-primary-container text-5xl font-black mb-2 impact-number" data-suffix="k" data-target="120000">0</p>
+<p class="text-secondary-fixed text-xs font-bold uppercase tracking-widest">Swings Taken</p>
+</div>
+<div>
+<p class="text-primary-container text-5xl font-black mb-2 impact-number" data-target="42">0</p>
+<p class="text-secondary-fixed text-xs font-bold uppercase tracking-widest">Charities Supported</p>
+</div>
+<div>
+<p class="text-primary-container text-5xl font-black mb-2 impact-number" data-suffix="+" data-target="15">0</p>
+<p class="text-secondary-fixed text-xs font-bold uppercase tracking-widest">Countries Reached</p>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full rounded-t-[3rem] mt-20 bg-slate-900 overflow-hidden">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-12 px-12 py-20 max-w-7xl mx-auto">
+<div class="col-span-2 md:col-span-1">
+<div class="text-2xl font-black text-white mb-6">Play With Purpose</div>
+<p class="font-manrope text-sm text-slate-400 leading-relaxed">Architecting impact through every swing. A new era of philanthropic sport.</p>
+</div>
+<div>
+<h5 class="text-white font-bold mb-6">Platform</h5>
+<ul class="space-y-4">
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 transition-transform hover:translate-x-1 block" href="#">Live Draws</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 transition-transform hover:translate-x-1 block" href="#">Past Winners</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 transition-transform hover:translate-x-1 block" href="#">How It Works</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-white font-bold mb-6">Connect</h5>
+<ul class="space-y-4">
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 transition-transform hover:translate-x-1 block" href="#">Community</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 transition-transform hover:translate-x-1 block" href="#">Support</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 transition-transform hover:translate-x-1 block" href="#">Partner with Us</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-white font-bold mb-6">Legal</h5>
+<ul class="space-y-4">
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 transition-transform hover:translate-x-1 block" href="#">Terms</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 transition-transform hover:translate-x-1 block" href="#">Privacy</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 transition-transform hover:translate-x-1 block" href="#">Compliance</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-white/5 px-12 py-8 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-manrope text-sm text-slate-400">© 2024 Play With Purpose. Architecting impact through every swing.</p>
+<div class="flex gap-6">
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-white transition-colors" data-icon="facebook">social_leaderboard</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-white transition-colors" data-icon="photo_camera">photo_camera</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-white transition-colors" data-icon="alternate_email">alternate_email</span>
+</div>
+</div>
+</footer>
+<script>
+    // Intersection Observer for generic scroll reveals
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.scroll-reveal, .timeline-point, .timeline-content').forEach(el => {
+        revealObserver.observe(el);
+    });
+
+    // Count-up animation for impact numbers
+    const countUp = (element) => {
+        const target = parseInt(element.getAttribute('data-target'));
+        const prefix = element.getAttribute('data-prefix') || '';
+        const suffix = element.getAttribute('data-suffix') || '';
+        let current = 0;
+        const duration = 2000;
+        const step = target / (duration / 16);
+
+        const update = () => {
+            current += step;
+            if (current < target) {
+                let displayVal = Math.floor(current);
+                if (target >= 1000000) displayVal = (current / 1000000).toFixed(1);
+                else if (target >= 1000) displayVal = Math.floor(current / 1000);
+                
+                element.innerText = prefix + displayVal + suffix;
+                requestAnimationFrame(update);
+            } else {
+                let finalVal = target;
+                if (target >= 1000000) finalVal = (target / 1000000).toFixed(1);
+                else if (target >= 1000) finalVal = Math.floor(target / 1000);
+                element.innerText = prefix + finalVal + suffix;
+            }
+        };
+        requestAnimationFrame(update);
+    };
+
+    const impactObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                entry.target.classList.add('counted');
+                countUp(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.impact-number').forEach(num => impactObserver.observe(num));
+</script>
+</body></html>

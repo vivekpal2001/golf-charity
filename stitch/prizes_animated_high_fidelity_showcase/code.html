@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Prizes | Play With Purpose</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#f5f3ef",
+              "outline-variant": "#e1bfb5",
+              "secondary-fixed-dim": "#adc8f5",
+              "inverse-primary": "#ffb59d",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#95d4b3",
+              "on-secondary": "#ffffff",
+              "primary": "#ab3500",
+              "outline": "#8d7168",
+              "error-container": "#ffdad6",
+              "surface-tint": "#ab3500",
+              "on-primary": "#ffffff",
+              "primary-fixed": "#ffdbd0",
+              "on-tertiary-fixed-variant": "#0e5138",
+              "on-error-container": "#93000a",
+              "on-primary-fixed-variant": "#832600",
+              "surface": "#fbf9f5",
+              "surface-container": "#efeeea",
+              "primary-container": "#ff6b35",
+              "on-secondary-container": "#3e5980",
+              "on-surface-variant": "#594139",
+              "tertiary": "#2c694e",
+              "secondary-fixed": "#d5e3ff",
+              "secondary-container": "#b5d0fd",
+              "on-tertiary-container": "#003a25",
+              "surface-container-high": "#eae8e4",
+              "inverse-on-surface": "#f2f0ed",
+              "surface-bright": "#fbf9f5",
+              "error": "#ba1a1a",
+              "on-surface": "#1b1c1a",
+              "on-primary-fixed": "#390c00",
+              "on-secondary-fixed": "#001c3b",
+              "on-secondary-fixed-variant": "#2d486d",
+              "tertiary-fixed": "#b1f0ce",
+              "surface-container-highest": "#e4e2de",
+              "inverse-surface": "#30312e",
+              "secondary": "#455f87",
+              "on-error": "#ffffff",
+              "on-primary-container": "#5f1900",
+              "tertiary-container": "#69a687",
+              "surface-variant": "#e4e2de",
+              "surface-dim": "#dbdad6",
+              "on-tertiary-fixed": "#002114",
+              "on-background": "#1b1c1a",
+              "primary-fixed-dim": "#ffb59d",
+              "surface-container-lowest": "#ffffff",
+              "background": "#fbf9f5"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .hero-gradient {
+        background: linear-gradient(135deg, #ab3500 0%, #ff6b35 100%);
+      }
+      .asymmetric-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+      }
+      @media (max-width: 768px) {
+        .asymmetric-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Scroll Animation Classes */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Staggered Cards Delay */
+      .reveal-stagger:nth-child(1) { transition-delay: 0.1s; }
+      .reveal-stagger:nth-child(2) { transition-delay: 0.2s; }
+      .reveal-stagger:nth-child(3) { transition-delay: 0.3s; }
+
+      /* Trophy Initial State */
+      #hero-trophy {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+        transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      #hero-trophy.active {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+
+      /* Prize Card Hover States */
+      .prize-card-hover {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .prize-card-hover:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 40px rgba(171, 53, 0, 0.08);
+      }
+      .prize-card-hover:hover .icon-box {
+        transform: scale(1.1);
+      }
+
+      /* Parallax Backgrounds */
+      .parallax-bg {
+        will-change: transform;
+      }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl shadow-sm h-20">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-full">
+<div class="text-xl font-extrabold tracking-tighter text-slate-900">
+                Play With Purpose
+            </div>
+<div class="hidden md:flex items-center gap-8 font-manrope text-sm font-semibold tracking-tight">
+<a class="text-slate-600 hover:text-slate-900 transition-colors" href="#">How It Works</a>
+<a class="text-orange-600 border-b-2 border-orange-600 pb-1" href="#">Prizes</a>
+<a class="text-slate-600 hover:text-slate-900 transition-colors" href="#">Winners</a>
+<a class="text-slate-600 hover:text-slate-900 transition-colors" href="#">Charity</a>
+<a class="text-slate-600 hover:text-slate-900 transition-colors" href="#">About</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-600 font-semibold text-sm px-4 py-2 hover:bg-slate-100/50 rounded-lg transition-all">Sign In</button>
+<button class="bg-primary-container text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-sm hover:scale-95 duration-200 ease-out">
+                    Enter Now
+                </button>
+</div>
+</div>
+</nav>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative overflow-hidden min-h-[819px] flex items-center px-6 py-20">
+<!-- Subtle Parallax Elements -->
+<div class="absolute top-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl parallax-bg" data-speed="0.2"></div>
+<div class="absolute bottom-20 left-10 w-64 h-64 bg-secondary/5 rounded-full blur-3xl parallax-bg" data-speed="-0.1"></div>
+<div class="max-w-7xl mx-auto w-full asymmetric-grid gap-12 items-center">
+<div class="space-y-8">
+<span class="inline-block px-4 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-xs font-bold tracking-widest uppercase">
+                        Season 04 Rewards
+                    </span>
+<h1 class="text-6xl md:text-8xl font-extrabold text-secondary tracking-tight leading-[0.9] -ml-1">
+                        Win Big. <br/>
+<span class="text-primary">Play with Purpose.</span>
+</h1>
+<p class="text-on-surface-variant text-xl max-w-xl leading-relaxed">
+                        Every entry fuels global impact. Compete for high-stakes rewards while funding clean water initiatives and education worldwide.
+                    </p>
+<div class="flex gap-4">
+<button class="hero-gradient text-white px-10 py-5 rounded-full text-lg font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-transform">
+                            View Prize Pool
+                        </button>
+<button class="bg-white text-secondary px-8 py-5 rounded-full text-lg font-bold border border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+                            The Impact
+                        </button>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute inset-0 bg-primary-container/10 blur-[120px] rounded-full scale-150 -z-10"></div>
+<img alt="Premium Gold Trophy" class="w-full h-auto drop-shadow-2xl" data-alt="3D render of a premium minimalist gold trophy with clean lines standing on a sleek reflective white pedestal against a warm background" id="hero-trophy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ8CtPtCxTe_tmtjf5lNQsnT3cGeu-bjWC8EW3-YYs2lnGC0SzcNKi9VWIDRKncc0fI7ACADyMATgmdA34oHyknZ2Vro2kE4EZQr-nIj48BeTTjCis6jXW1G3R3_BRxtCFNUXpq4SFLDYajw3YgMVzC_rdvmORZA8BxWJSqYBZ0_i6J5U6y87mz737YPxFr9y0nlYkCWzGcRVW8CQ65KByk00MjVN-h2rhRWXNnm5JRZEWdUr3XHFvfez5Eocs0zBgvjTZd6MejJbX"/>
+</div>
+</div>
+</section>
+<!-- Prize Pool Section -->
+<section class="py-24 px-6 bg-surface-container-low">
+<div class="max-w-7xl mx-auto">
+<div class="bg-white rounded-[2.5rem] p-8 md:p-16 shadow-2xl shadow-primary/5 relative overflow-hidden reveal">
+<div class="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-tertiary/5 rounded-full blur-3xl parallax-bg" data-speed="0.1"></div>
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-end gap-12">
+<div class="w-full md:w-1/2 space-y-6">
+<h2 class="text-sm font-bold tracking-[0.2em] text-tertiary uppercase">Current Standing</h2>
+<div class="space-y-2">
+<p class="text-on-surface-variant text-lg">Monthly Prize Pool</p>
+<p class="text-7xl font-extrabold text-secondary tracking-tighter">₹<span class="count-up" data-target="50000">0</span></p>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between text-sm font-bold">
+<span class="text-on-surface-variant">Progress to Next Tier</span>
+<span class="text-tertiary">85% Complete</span>
+</div>
+<div class="w-full h-4 bg-surface-container-high rounded-full overflow-hidden">
+<div 20="" class="h-full bg-tertiary w-0 transition-all duration-1000 ease-out progress-bar" data-width="85%" rounded-full="" shadow-lg="" shadow-tertiary=""></div>
+</div>
+</div>
+</div>
+<div class="w-full md:w-auto grid grid-cols-2 gap-4">
+<div class="p-6 bg-surface-container-lowest rounded-3xl border border-outline-variant/10 text-center">
+<p class="text-on-surface-variant text-sm font-medium">Daily Boost</p>
+<p class="text-2xl font-bold text-primary">+₹1,250</p>
+</div>
+<div class="p-6 bg-surface-container-lowest rounded-3xl border border-outline-variant/10 text-center">
+<p class="text-on-surface-variant text-sm font-medium">Active Players</p>
+<p class="text-2xl font-bold text-secondary">2,841</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Tier Breakdown Section -->
+<section class="py-32 px-6">
+<div class="max-w-7xl mx-auto space-y-20">
+<div class="flex flex-col md:flex-row justify-between items-end gap-8 reveal">
+<div class="space-y-4">
+<h2 class="text-5xl font-extrabold text-secondary tracking-tight">Reward Tiers</h2>
+<p class="text-on-surface-variant text-xl max-w-md">Precision-engineered rewards for the focused player.</p>
+</div>
+<div class="flex gap-2 p-1 bg-surface-container-high rounded-full">
+<button class="px-6 py-2 bg-white rounded-full shadow-sm text-sm font-bold text-secondary">Current Month</button>
+<button class="px-6 py-2 text-sm font-medium text-on-surface-variant hover:text-secondary">Historical</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Jackpot Card -->
+<div class="glass-card p-10 rounded-[3rem] border border-white/50 shadow-xl flex flex-col justify-between group prize-card-hover min-h-[500px] reveal reveal-stagger">
+<div class="space-y-8">
+<div class="flex justify-between items-start">
+<div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center icon-box transition-transform duration-500">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<span class="bg-primary text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">Jackpot</span>
+</div>
+<div class="space-y-2">
+<h3 class="text-3xl font-bold text-secondary leading-none">5-Match Jackpot</h3>
+<p class="text-on-surface-variant font-medium">Pool Share: 40%</p>
+</div>
+</div>
+<div class="space-y-6">
+<div class="p-6 bg-white rounded-2xl border border-outline-variant/5">
+<p class="text-xs font-bold text-on-surface-variant/60 uppercase tracking-widest mb-1">Estimated Win</p>
+<p class="text-4xl font-black text-primary">₹20,000</p>
+</div>
+<p class="text-sm text-on-surface-variant/80 italic">Last Month: ₹18,450</p>
+</div>
+</div>
+<!-- Tier 2 Card -->
+<div class="glass-card p-10 rounded-[3rem] border border-white/50 shadow-xl flex flex-col justify-between group prize-card-hover min-h-[500px] reveal reveal-stagger">
+<div class="space-y-8">
+<div class="flex justify-between items-start">
+<div class="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center icon-box transition-transform duration-500">
+<span class="material-symbols-outlined text-secondary text-4xl">military_tech</span>
+</div>
+<span class="bg-secondary/10 text-secondary text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">Shared</span>
+</div>
+<div class="space-y-2">
+<h3 class="text-3xl font-bold text-secondary leading-none">4-Match Prize</h3>
+<p class="text-on-surface-variant font-medium">Pool Share: 35%</p>
+</div>
+</div>
+<div class="space-y-6">
+<div class="p-6 bg-white rounded-2xl border border-outline-variant/5">
+<p class="text-xs font-bold text-on-surface-variant/60 uppercase tracking-widest mb-1">Estimated Win</p>
+<p class="text-4xl font-black text-secondary">₹17,500</p>
+</div>
+<p class="text-sm text-on-surface-variant/80 italic">Split among 4 winners</p>
+</div>
+</div>
+<!-- Tier 3 Card -->
+<div class="glass-card p-10 rounded-[3rem] border border-white/50 shadow-xl flex flex-col justify-between group prize-card-hover min-h-[500px] reveal reveal-stagger">
+<div class="space-y-8">
+<div class="flex justify-between items-start">
+<div class="w-16 h-16 bg-tertiary/10 rounded-2xl flex items-center justify-center icon-box transition-transform duration-500">
+<span class="material-symbols-outlined text-tertiary text-4xl">verified</span>
+</div>
+<span class="bg-tertiary/10 text-tertiary text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">Guaranteed</span>
+</div>
+<div class="space-y-2">
+<h3 class="text-3xl font-bold text-secondary leading-none">3-Match Prize</h3>
+<p class="text-on-surface-variant font-medium">Pool Share: 25%</p>
+</div>
+</div>
+<div class="space-y-6">
+<div class="p-6 bg-white rounded-2xl border border-outline-variant/5">
+<p class="text-xs font-bold text-on-surface-variant/60 uppercase tracking-widest mb-1">Estimated Win</p>
+<p class="text-4xl font-black text-tertiary">₹12,500</p>
+</div>
+<p class="text-sm text-on-surface-variant/80 italic">Base payout secured</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Odds & Transparency -->
+<section class="py-24 px-6 bg-secondary text-white relative overflow-hidden">
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&amp;fit=crop&amp;q=80&amp;w=2000')] opacity-10 mix-blend-overlay parallax-bg" data-alt="Subtle abstract technological pattern with glowing lines and dots on dark navy background" data-speed="0.15"></div>
+<div class="max-w-7xl mx-auto relative z-10">
+<div class="flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="max-w-xl space-y-6 reveal">
+<h2 class="text-4xl font-extrabold tracking-tight">Fair Play. Total Transparency.</h2>
+<p class="text-secondary-fixed/70 text-lg leading-relaxed">
+                            Our prize pools are calculated live based on entry volume. 100% of the allocated pool is distributed every single month. No hidden fees, no fine print.
+                        </p>
+<div class="flex gap-4 items-center">
+<div class="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
+<span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+<span class="text-sm font-bold tracking-wide">POOL BOOST ACTIVE</span>
+</div>
+<button class="text-sm font-bold underline underline-offset-8 hover:text-primary transition-colors">View Detailed Odds</button>
+</div>
+</div>
+<div class="w-full md:w-1/3 bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10 reveal" style="transition-delay: 0.2s;">
+<h3 class="text-xl font-bold mb-6">Live Pool Boost</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center pb-4 border-b border-white/10">
+<span class="text-secondary-fixed/60">Community Goal</span>
+<span class="font-bold">₹100,000</span>
+</div>
+<div class="flex justify-between items-center pb-4 border-b border-white/10">
+<span class="text-secondary-fixed/60">Active Multiplier</span>
+<span class="font-bold text-primary">1.2x</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-secondary-fixed/60">Next Boost In</span>
+<span class="font-bold">04:12:59</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Live Status Dashboard -->
+<section class="py-32 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="space-y-8 reveal">
+<h2 class="text-sm font-bold tracking-[0.2em] text-primary uppercase">Global Dashboard</h2>
+<p class="text-5xl font-extrabold text-secondary tracking-tight">Real Impact, <br/> Real Winners.</p>
+<p class="text-on-surface-variant text-xl">The movement is growing. Every swing counts toward a better world.</p>
+<img alt="Collaborative Impact" class="rounded-[2.5rem] w-full h-64 object-cover hover:scale-105 transition-transform duration-700" data-alt="Group of diverse, smiling young people working together in a sunlit modern community center atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8vu6mCS1XvRKv5K3t3QfQSQ3H49JwEshabWvFLGOx6p2haND7u_tOXrjJZlBGcIEkdTsa4RD7_EfGK7NGtXuW59m1VdTUwoUQS3jImbssGIAURaUmUxb-7sTIruj9YKBNAUSjEsSyX7ERqyQcvIV5tiZJ7jS9_mBQma7szCAKzUGPWSVSIAkZb5AEyDHLQTlK082LnBn71qjCq4_yeuZjGeXHzuXt6yHl63AORy1Tj1RStQoaFOKKA6sLakfqr6u1-no0THD28CQt"/>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<div class="bg-surface-container-low rounded-[2.5rem] p-10 flex items-center justify-between group hover:bg-white transition-all duration-500 border border-transparent hover:border-outline-variant/10 hover:shadow-xl reveal reveal-stagger">
+<div>
+<p class="text-on-surface-variant font-bold mb-1">Lifetime Impact</p>
+<p class="text-5xl font-black text-secondary tracking-tighter">₹2.4M+</p>
+</div>
+<div class="w-16 h-16 bg-tertiary text-white rounded-full flex items-center justify-center shadow-lg shadow-tertiary/20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">volunteer_activism</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-[2.5rem] p-10 flex items-center justify-between group hover:bg-white transition-all duration-500 border border-transparent hover:border-outline-variant/10 hover:shadow-xl reveal reveal-stagger">
+<div>
+<p class="text-on-surface-variant font-bold mb-1">Total Winners</p>
+<p class="text-5xl font-black text-secondary tracking-tighter"><span class="count-up" data-target="1248">0</span></p>
+</div>
+<div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">groups</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-[2.5rem] p-10 flex items-center justify-between group hover:bg-white transition-all duration-500 border border-transparent hover:border-outline-variant/10 hover:shadow-xl reveal reveal-stagger">
+<div>
+<p class="text-on-surface-variant font-bold mb-1">Countries Impacted</p>
+<p class="text-5xl font-black text-secondary tracking-tighter">12</p>
+</div>
+<div class="w-16 h-16 bg-secondary text-white rounded-full flex items-center justify-center shadow-lg shadow-secondary/20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">public</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-32 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="relative rounded-[4rem] p-12 md:p-24 overflow-hidden text-center bg-secondary reveal">
+<div class="absolute top-0 left-0 w-full h-full opacity-10">
+<img alt="Modern Stadium Background" class="w-full h-full object-cover parallax-bg" data-alt="Wide shot of a futuristic stadium at night with dramatic lighting and ethereal glow" data-speed="0.1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1CO3f73_X3L_FKtbcECx1qagGz9Ob0SUGyP2byhSMZhiqr_UYeZ-aBtMrKV2a8pjyLtBhYnVhmYqak80XarJVq6jGKAzrCIyTGXJ1VXh8U7Ms2Zdewo77GBXDYp6SOGll66vEM6AsvHEOFPYaXbX2fKPZIxBG0wAy5_OKpKDNfrO40wTruIcE5NzMtodQ0xv4dbunmfmvHWq47PAqBeXDoKQrX6fFSdt17770o61gNTmPaMsR_Iwiv7UiSty4SLmNpMLzDeP8st2D"/>
+</div>
+<div class="relative z-10 space-y-8 max-w-2xl mx-auto">
+<h2 class="text-4xl md:text-6xl font-black text-white tracking-tighter">Ready to win for a cause?</h2>
+<p class="text-secondary-fixed/80 text-xl">The next draw starts in 14 hours. Your entry could be the one that changes a life—starting with yours.</p>
+<div class="pt-8">
+<button class="bg-primary-container text-white px-12 py-6 rounded-full text-2xl font-black shadow-2xl shadow-primary/40 hover:scale-110 transition-transform active:scale-95 duration-200">
+                                Enter Now
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-slate-900 text-slate-400 py-12 px-6">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 border-t border-slate-800 pt-12">
+<div class="space-y-4">
+<div class="text-lg font-bold text-white">Play With Purpose</div>
+<p class="text-sm">© 2024 Play With Purpose. Architecting impact through every swing.</p>
+</div>
+<div class="flex flex-col gap-3">
+<span class="text-white font-medium mb-2">Platform</span>
+<a class="hover:text-orange-400 hover:translate-x-1 transition-all" href="#">How It Works</a>
+<a class="text-white font-medium" href="#">Prizes</a>
+<a class="hover:text-orange-400 hover:translate-x-1 transition-all" href="#">Winners</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="text-white font-medium mb-2">Company</span>
+<a class="hover:text-orange-400 hover:translate-x-1 transition-all" href="#">About</a>
+<a class="hover:text-orange-400 hover:translate-x-1 transition-all" href="#">Charity</a>
+<a class="hover:text-orange-400 hover:translate-x-1 transition-all" href="#">Contact Us</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="text-white font-medium mb-2">Legal</span>
+<a class="hover:text-orange-400 hover:translate-x-1 transition-all" href="#">Privacy Policy</a>
+<a class="hover:text-orange-400 hover:translate-x-1 transition-all" href="#">Terms of Service</a>
+<a class="hover:text-orange-400 hover:translate-x-1 transition-all" href="#">FAQ</a>
+</div>
+</div>
+</footer>
+<script>
+        // Intersection Observer for Reveal Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Trigger Count-Up if the element contains count-up elements
+                    const countElements = entry.target.querySelectorAll('.count-up');
+                    countElements.forEach(el => startCountUp(el));
+
+                    // Trigger Progress Bars
+                    const progressBars = entry.target.querySelectorAll('.progress-bar');
+                    progressBars.forEach(bar => {
+                        bar.style.width = bar.getAttribute('data-width');
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Hero Trophy Special Observer
+        const trophyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        const trophy = document.getElementById('hero-trophy');
+        if (trophy) trophyObserver.observe(trophy);
+
+        // Count-Up Logic
+        function startCountUp(el) {
+            if (el.dataset.counted === "true") return;
+            el.dataset.counted = "true";
+            
+            const target = parseInt(el.dataset.target);
+            const duration = 2000; // 2 seconds
+            const startTime = performance.now();
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Ease out cubic
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                const currentCount = Math.floor(easeProgress * target);
+                
+                el.innerText = currentCount.toLocaleString();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    el.innerText = target.toLocaleString();
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        // Parallax Effect Logic
+        window.addEventListener('scroll', () => {
+            const parallaxElements = document.querySelectorAll('.parallax-bg');
+            const scrolled = window.pageYOffset;
+
+            parallaxElements.forEach(el => {
+                const speed = el.dataset.speed || 0.1;
+                const rect = el.getBoundingClientRect();
+                const offset = rect.top + scrolled;
+                const scrollVisible = scrolled - offset + window.innerHeight;
+                
+                if (scrollVisible > 0 && rect.top < window.innerHeight) {
+                    const yPos = -(scrolled * speed);
+                    el.style.transform = `translateY(${yPos}px)`;
+                }
+            });
+        });
+
+        // Initialize progress bars initial state
+        document.querySelectorAll('.progress-bar').forEach(bar => {
+            bar.style.width = '0%';
+        });
+    </script>
+</body></html>

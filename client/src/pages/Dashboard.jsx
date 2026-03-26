@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
 import { 
   LayoutDashboard, Target, CreditCard, Heart, Trophy, 
-  Menu, X, ChevronRight, User, Bell, Database
+  Menu, X, ChevronRight, User, Bell, Database, Settings as SettingsIcon
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import useSubscription from '../hooks/useSubscription';
@@ -40,6 +40,7 @@ const Dashboard = () => {
     { path: '/dashboard/charity', label: 'My Charity', icon: Heart },
     { path: '/dashboard/winnings', label: 'Winnings', icon: Trophy },
     { path: '/dashboard/results', label: 'Past Results', icon: Database },
+    { path: '/dashboard/settings', label: 'Settings', icon: SettingsIcon },
   ];
 
   const location = useLocation();

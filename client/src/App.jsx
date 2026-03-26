@@ -8,10 +8,13 @@ import AdminRoute from './components/AdminRoute';
 // Public Pages
 import Home from './pages/Home';
 import HowItWorks from './pages/HowItWorks';
+import Prizes from './pages/Prizes';
+import Charities from './pages/Charities';
+import Winners from './pages/Winners';
+import About from './pages/About';
+import CharityDetail from './pages/CharityDetail';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Charities from './pages/Charities';
-import CharityDetail from './pages/CharityDetail';
 
 // Protected User Pages
 import Dashboard from './pages/Dashboard';
@@ -20,6 +23,7 @@ import Subscription from './pages/dashboard/Subscription';
 import Charity from './pages/dashboard/Charity';
 import Winnings from './pages/dashboard/Winnings';
 import Results from './pages/dashboard/Results';
+import Settings from './pages/dashboard/Settings';
 
 // Admin Pages
 import Admin from './pages/Admin';
@@ -33,10 +37,13 @@ function App() {
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/prizes" element={<Prizes />} />
             <Route path="/charities" element={<Charities />} />
             <Route path="/charities/:id" element={<CharityDetail />} />
+            <Route path="/winners" element={<Winners />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
 
             {/* Protected User Routes */}
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
@@ -45,6 +52,7 @@ function App() {
             <Route path="/dashboard/charity" element={<ProtectedRoute><Charity /></ProtectedRoute>} />
             <Route path="/dashboard/winnings" element={<ProtectedRoute><Winnings /></ProtectedRoute>} />
             <Route path="/dashboard/results" element={<ProtectedRoute><Results /></ProtectedRoute>} />
+            <Route path="/dashboard/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
 
             {/* Admin Routes */}
             <Route path="/admin" element={<AdminRoute><Admin /></AdminRoute>} />

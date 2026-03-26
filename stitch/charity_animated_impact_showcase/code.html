@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Charity Impact | Play With Purpose</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline": "#8d7168",
+              "on-secondary-container": "#3e5980",
+              "surface-container-highest": "#e4e2de",
+              "secondary-fixed-dim": "#adc8f5",
+              "secondary-container": "#b5d0fd",
+              "surface-bright": "#fbf9f5",
+              "primary-fixed": "#ffdbd0",
+              "on-tertiary-fixed-variant": "#0e5138",
+              "on-tertiary": "#ffffff",
+              "on-error": "#ffffff",
+              "primary-fixed-dim": "#ffb59d",
+              "on-background": "#1b1c1a",
+              "primary": "#ab3500",
+              "secondary-fixed": "#d5e3ff",
+              "inverse-primary": "#ffb59d",
+              "surface-container": "#efeeea",
+              "inverse-surface": "#30312e",
+              "surface-dim": "#dbdad6",
+              "surface": "#fbf9f5",
+              "on-error-container": "#93000a",
+              "tertiary-container": "#69a687",
+              "tertiary": "#2c694e",
+              "on-primary-fixed": "#390c00",
+              "on-secondary-fixed": "#001c3b",
+              "inverse-on-surface": "#f2f0ed",
+              "on-primary-container": "#5f1900",
+              "on-secondary": "#ffffff",
+              "tertiary-fixed": "#b1f0ce",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed-variant": "#2d486d",
+              "primary-container": "#ff6b35",
+              "on-primary": "#ffffff",
+              "outline-variant": "#e1bfb5",
+              "on-tertiary-fixed": "#002114",
+              "on-surface": "#1b1c1a",
+              "error-container": "#ffdad6",
+              "surface-variant": "#e4e2de",
+              "on-tertiary-container": "#003a25",
+              "background": "#fbf9f5",
+              "surface-tint": "#ab3500",
+              "surface-container-high": "#eae8e4",
+              "tertiary-fixed-dim": "#95d4b3",
+              "surface-container-low": "#f5f3ef",
+              "on-surface-variant": "#594139",
+              "on-primary-fixed-variant": "#832600",
+              "error": "#ba1a1a",
+              "secondary": "#455f87"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            keyframes: {
+              revealRight: {
+                '0%': { transform: 'translateX(100%)', opacity: '0' },
+                '100%': { transform: 'translateX(0)', opacity: '0.2' },
+              },
+              fadeInUp: {
+                '0%': { transform: 'translateY(40px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              },
+              fillProgress: {
+                '0%': { width: '0%' },
+                '100%': { width: '75%' },
+              }
+            },
+            animation: {
+              revealRight: 'revealRight 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards',
+              fadeInUp: 'fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards',
+              fillProgress: 'fillProgress 2s cubic-bezier(0.65, 0, 0.35, 1) forwards',
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-asymmetry {
+            padding-left: clamp(2rem, 10vw, 8rem);
+            padding-right: clamp(2rem, 5vw, 4rem);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: 200%;
+            animation: marquee 30s linear infinite;
+        }
+        /* Reveal-on-scroll helper classes */
+        .reveal-hidden {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .reveal-visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+        .parallax-target {
+            transition: transform 0.2s linear;
+        }
+        .progress-bar-inner {
+            width: 0%;
+            transition: width 2s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .progress-bar-inner.animate {
+            width: 75%;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-extrabold tracking-tighter text-slate-900 dark:text-white font-headline">Play With Purpose</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-manrope text-sm font-semibold tracking-tight text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Home</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">How It Works</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Prizes</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Winners</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-orange-600 dark:text-orange-400 border-b-2 border-orange-600 pb-1" href="#">Charity</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">About</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="font-manrope text-sm font-semibold tracking-tight text-slate-600 hover:opacity-80 transition-all duration-300">Log In</button>
+<button class="bg-primary-container text-on-primary-container font-manrope text-sm font-semibold tracking-tight px-6 py-2 rounded-full hover:opacity-80 transition-all duration-300 scale-95 active:scale-90">Enter Draw</button>
+</div>
+</div>
+</nav>
+<main class="pt-24 overflow-hidden">
+<!-- Hero Section: Editorial Impact -->
+<section class="relative min-h-[819px] flex items-center editorial-asymmetry py-20">
+<div class="max-w-3xl z-10 animate-fadeInUp">
+<span class="inline-block text-primary font-bold tracking-[0.2em] uppercase text-xs mb-6 opacity-0 animate-fadeInUp" style="animation-delay: 0.2s;">The Philanthropic Architect</span>
+<h1 class="text-6xl md:text-8xl font-black text-secondary leading-[0.9] tracking-tighter mb-8 opacity-0 animate-fadeInUp" style="animation-delay: 0.4s;">
+                    Architecting <br/> <span class="text-tertiary">Impact</span> Through <br/> Every Swing.
+                </h1>
+<p class="text-xl text-on-surface-variant max-w-xl leading-relaxed mb-12 opacity-0 animate-fadeInUp" style="animation-delay: 0.6s;">
+                    We turn the precision of the game into the power of change. Every entry supports world-class charities making a tangible difference on the ground.
+                </p>
+<div class="flex flex-wrap gap-6 opacity-0 animate-fadeInUp" style="animation-delay: 0.8s;">
+<div class="bg-tertiary-container/10 px-6 py-4 rounded-xl flex items-center gap-4">
+<span class="material-symbols-outlined text-tertiary text-3xl" data-icon="volunteer_activism">volunteer_activism</span>
+<div>
+<div class="text-2xl font-black text-tertiary">$1.2M+</div>
+<div class="text-xs font-bold text-on-tertiary-container uppercase tracking-widest">Total Raised</div>
+</div>
+</div>
+<div class="bg-primary-fixed px-6 py-4 rounded-xl flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="groups">groups</span>
+<div>
+<div class="text-2xl font-black text-primary">45,000+</div>
+<div class="text-xs font-bold text-on-primary-fixed uppercase tracking-widest">Lives Impacted</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Large Scale Image: Cinematic Reveal -->
+<div class="absolute right-[-10%] top-1/2 -translate-y-1/2 w-1/2 h-full opacity-0 animate-revealRight pointer-events-none">
+<img alt="" class="w-full h-full object-cover rounded-l-[5rem]" data-alt="minimalist close-up of a high-end golf club head reflecting soft sunlight against a deep navy abstract background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNCvg5R0PqfHlNfkoTByYV5RJzXHLp2__BCr9N3neHIEFCMlTPLpoaPaGvCnebhHWvbsOmPNUVMBniqsFq8XXAg8kt1l1TERxkIxSsIXuvF_kvOSrUCbc4ALdZwt5BFjPPTqy_mi6PwY1KA6gb7n4pq1tnZmpPOT9qAMxSaiQPBoKcHYxTjsTXpZv55zHmLxMQDhet1quVX84YWPoS2hS4vv8w_tA02tdT6VgDYQvPHUCUv5eFaZ25Aj0-TK4PFj6A0qFg8fZOtqJK"/>
+</div>
+</section>
+<!-- Featured Impact Story: Glassmorphism -->
+<section class="py-24 px-8 max-w-7xl mx-auto">
+<div class="relative rounded-[3rem] overflow-hidden p-12 md:p-24 min-h-[600px] flex items-end reveal-hidden scroll-reveal">
+<img alt="" class="absolute inset-0 w-full h-full object-cover" data-alt="heartwarming shot of children in a colorful rural school setting smiling brightly with soft warm sunlight filtering through windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe723PQj_PKbywtdrxNCQ6rjhnbKPvzu6Jk7BldMbl0kBinZJjv1eAWQm3SofQnI9yC856okQ0OQWdhrZl9tkx8eBcEvOBja18hh0wg4nIo8yFgK5chdEIlv2jYrDHIe6uOZ94tMaXDEEyhXhNdrsQwQqXwMylx8sBcRaNvMSgwFnJ0-YPAiHL2D20I3B-5COtCwkVy44YFrh4eZbvw7rD1fVh5bZ_bM1pXTuftyLXdZmoH-d5blhwWRGDyE2BQ3YC7Z5y_oeUTWup"/>
+<div class="absolute inset-0 bg-gradient-to-t from-secondary/80 via-secondary/20 to-transparent"></div>
+<div class="glass-panel relative z-10 p-8 md:p-12 rounded-[2rem] max-w-2xl border border-white/20 shadow-2xl">
+<span class="text-tertiary font-bold tracking-widest uppercase text-xs">Featured Impact Story</span>
+<h2 class="text-3xl md:text-5xl font-black text-secondary mt-4 mb-6 leading-tight">Nourishing the Future of Rural Education</h2>
+<p class="text-on-surface-variant leading-relaxed mb-8">
+                        Through our partnership with Akshaya Patra, 'Play With Purpose' members have funded over 250,000 mid-day meals this year alone, ensuring that hunger never stands in the way of a child's education.
+                    </p>
+<a class="inline-flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all" href="#">
+                        Read Full Story <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Charity Partner Grid: Bento Style -->
+<section class="py-24 bg-surface-container-low rounded-t-[5rem]">
+<div class="max-w-7xl mx-auto px-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 reveal-hidden scroll-reveal">
+<div class="max-w-xl">
+<h2 class="text-4xl md:text-5xl font-black text-secondary tracking-tighter mb-6">Our Foundational Partners</h2>
+<p class="text-on-surface-variant">We meticulously vet every partner to ensure your contributions drive maximum efficiency and deep social architecture.</p>
+</div>
+<div class="hidden md:block">
+<div class="text-tertiary flex items-center gap-2 font-bold">
+<span class="material-symbols-outlined" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+                            100% Transparency Guaranteed
+                        </div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Akshaya Patra -->
+<div class="md:col-span-8 bg-surface-container-lowest p-8 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-shadow group reveal-hidden scroll-reveal staggered-item">
+<div class="flex flex-col md:flex-row gap-12">
+<div class="flex-1">
+<div class="w-16 h-16 bg-surface-container mb-8 rounded-2xl flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-4xl" data-icon="restaurant" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+</div>
+<h3 class="text-3xl font-black text-secondary mb-4">Akshaya Patra</h3>
+<p class="text-on-surface-variant mb-8">Eradicating classroom hunger in India through a massive scale school meal program that encourages enrollment and retention.</p>
+<div class="mt-auto">
+<div class="flex justify-between items-end mb-2">
+<span class="text-sm font-bold text-on-surface-variant uppercase tracking-widest">Impact Progress</span>
+<span class="text-tertiary font-black text-xl">$450,300 Raised</span>
+</div>
+<div class="w-full h-4 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary rounded-full progress-bar-inner"></div>
+</div>
+</div>
+</div>
+<div class="w-full md:w-72 h-80 rounded-[2rem] overflow-hidden">
+<img alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="large industrial kitchen with steam rising from massive pots, stainless steel surfaces, clean and professional philanthropic environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeQIJW5Go2NA_sLMNV4RQnZLTsb_1wooZQOVmpqfeiLFFZ6nnyPS0lymQOFqgXoEbtETcIUMCAD0Pp4oX3EM62GippXJAEEdCCkRtJyZpHnSWjFbp2iGf0GCjoX17QhjOE2qq_GG-4y7058aeGLm14hyEDtdzVtqwb_fH5I-KfIkTbQz2EIszi9EEBs_lsatN-cA0pBrP3PQzlBgFA-zCXZX_kadUptgvoO7hXXYUOAFAXMdOlzN3Q0lEsFBMqg9nuD3e5ELxr2ppd"/>
+</div>
+</div>
+</div>
+<!-- Red Cross India -->
+<div class="md:col-span-4 bg-secondary p-8 rounded-[2.5rem] text-white flex flex-col reveal-hidden scroll-reveal staggered-item">
+<div class="w-16 h-16 bg-white/10 mb-8 rounded-2xl flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-4xl" data-icon="medical_services" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+</div>
+<h3 class="text-3xl font-black mb-4">Red Cross India</h3>
+<p class="text-white/80 mb-12">Providing immediate disaster relief and healthcare services to vulnerable communities across the subcontinent.</p>
+<div class="mt-auto">
+<div class="text-4xl font-black mb-1">$285k</div>
+<div class="text-xs font-bold text-white/60 uppercase tracking-widest">Emergency Funds Deployed</div>
+</div>
+</div>
+<!-- Wildlife SOS -->
+<div class="md:col-span-4 bg-surface-container-lowest p-8 rounded-[2.5rem] shadow-sm flex flex-col border-t-4 border-tertiary reveal-hidden scroll-reveal staggered-item">
+<div class="w-16 h-16 bg-tertiary/10 mb-8 rounded-2xl flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-4xl" data-icon="pets" style="font-variation-settings: 'FILL' 1;">pets</span>
+</div>
+<h3 class="text-2xl font-black text-secondary mb-4">Wildlife SOS</h3>
+<p class="text-on-surface-variant mb-12">Rescuing and rehabilitating abused wildlife while conserving India's precious biodiversity.</p>
+<div class="flex items-center gap-4 mt-auto">
+<div class="flex -space-x-4">
+<div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
+<img alt="" class="w-full h-full object-cover" data-alt="portrait of a man smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjV6DRtIghvy2Mr2AKM_KugMa0NZvGng1hokhzsLcSxN2dkRAuSKZ99EFB_fOrLt1vuHhuaL28bg49szEC4-eIw9GzBY28e3LmVK5YtOyUVdVtfZ46AAF8elgzNWrz2aGn0nzo-Nu7q7Ncawv9yMORvsx2L7t1ALtckBfKYpUEx3vjhX85Mc1an5dWdZURpdhGAvR4NIr7OlJpLR7_vER7b3sbCrJ6NOsiBIUUO0_x7Yb7g1x-sXcWq7u76nBqKD7qcVDGHXUKiykj"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
+<img alt="" class="w-full h-full object-cover" data-alt="portrait of a woman smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkJfZBZOUn9YhlatX7t0tldLvBTKfcnujkns7vWY3S_gDAvnAexE-NuRjtyy4smspQ28IJkxVHvr6_K7RiB92K9Vm0dxXUl1HcQ5mX3N-i3hGuomz5o6BxHOKOF7p1jLXxA2xABI3wRY_TqDCoCcYJtYgmbAVqpgOjdbSARW_r1q8LIYIir2WO2fsl3CWj4-s99pK_aEmycybsctoWUBcolRsTptR2n8tFeaOqwBA-LX7oSUCWPqy5uO-xenVsKm_nA8D4SAOjdO4a"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-tertiary flex items-center justify-center text-[10px] font-bold text-white">
+                                    +8k
+                                </div>
+</div>
+<span class="text-xs font-bold text-on-surface-variant">Donors this month</span>
+</div>
+</div>
+<!-- Custom Impact Module: Drive for a Cause with Scroll Movement -->
+<div class="md:col-span-8 relative rounded-[2.5rem] overflow-hidden bg-primary-container p-8 md:p-12 flex items-center group parallax-target reveal-hidden scroll-reveal staggered-item">
+<div class="relative z-10 max-w-lg">
+<h3 class="text-4xl font-black text-on-primary-container mb-6">Drive for a Cause</h3>
+<p class="text-on-primary-container/80 text-lg mb-8">When you enter our monthly draws, 40% of all ticket proceeds go directly to these verified architectural impacts.</p>
+<button class="bg-on-primary-container text-white px-8 py-4 rounded-full font-bold hover:bg-secondary transition-colors group-hover:translate-x-2 transition-transform">
+                                Explore All Partners
+                            </button>
+</div>
+<div class="absolute right-[-5%] top-[-10%] opacity-20 group-hover:scale-110 transition-transform duration-700 pointer-events-none">
+<span class="material-symbols-outlined text-[300px]" data-icon="golf_course">golf_course</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Dynamic Result Ticker -->
+<section class="py-12 bg-secondary text-white overflow-hidden whitespace-nowrap">
+<div class="flex gap-24 animate-marquee items-center">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-tertiary-fixed" data-icon="check_circle">check_circle</span>
+<span class="text-xl font-bold uppercase tracking-widest">12,000 Trees Planted in Karnataka</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-tertiary-fixed" data-icon="check_circle">check_circle</span>
+<span class="text-xl font-bold uppercase tracking-widest">4 Disaster Response Units Funded</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-tertiary-fixed" data-icon="check_circle">check_circle</span>
+<span class="text-xl font-bold uppercase tracking-widest">500 Elephant Rescues Supported</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-tertiary-fixed" data-icon="check_circle">check_circle</span>
+<span class="text-xl font-bold uppercase tracking-widest">1M Meals Served Since Launch</span>
+</div>
+</div>
+</section>
+<!-- Call to Action: Slide Up Animation -->
+<section class="py-32 bg-surface text-center px-8 relative overflow-hidden reveal-hidden scroll-reveal">
+<div class="max-w-4xl mx-auto relative z-10">
+<h2 class="text-5xl md:text-7xl font-black text-secondary tracking-tighter mb-8">Your Legacy Starts on the <span class="text-primary italic">Green.</span></h2>
+<p class="text-xl text-on-surface-variant mb-12 max-w-2xl mx-auto leading-relaxed">Join a community of impact-driven players. Every swing is a chance to win luxury, and every entry is a brick in a better world.</p>
+<div class="flex flex-col md:flex-row gap-6 justify-center">
+<button class="bg-primary-container text-on-primary-container px-12 py-5 rounded-full font-black text-xl hover:shadow-2xl hover:-translate-y-1 transition-all">Enter Current Draw</button>
+<button class="bg-surface-container-high text-secondary px-12 py-5 rounded-full font-black text-xl border border-outline-variant/20 hover:bg-surface-container-highest transition-all">Download Impact Report</button>
+</div>
+</div>
+<!-- Background Decorative Element -->
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl opacity-[0.03] pointer-events-none">
+<span class="material-symbols-outlined text-[600px]" data-icon="public">public</span>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-900 dark:bg-black w-full rounded-t-[3rem] mt-20 reveal-hidden scroll-reveal">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-12 px-12 py-20 max-w-7xl mx-auto">
+<div class="col-span-2 md:col-span-1">
+<div class="text-2xl font-black text-white mb-6">Play With Purpose</div>
+<p class="font-manrope text-sm text-slate-400 leading-relaxed">© 2024 Play With Purpose. Architecting impact through every swing.</p>
+</div>
+<div>
+<h4 class="text-white font-bold mb-6">Platform</h4>
+<ul class="space-y-4">
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Current Draws</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Luxury Prizes</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Past Winners</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Transparency</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-6">Community</h4>
+<ul class="space-y-4">
+<li><a class="font-manrope text-sm text-white font-bold hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Charity</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Community Impact</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Partner Stories</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Ambassadors</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-6">Support</h4>
+<ul class="space-y-4">
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Terms</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Privacy</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Contact Us</a></li>
+<li><a class="font-manrope text-sm text-slate-400 hover:text-orange-400 hover:translate-x-1 transition-transform duration-200 inline-block" href="#">FAQ</a></li>
+</ul>
+</div>
+</div>
+</footer>
+<script>
+        // Intersection Observer for Scroll Reveals
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                    
+                    // Trigger progress bars
+                    const progressBars = entry.target.querySelectorAll('.progress-bar-inner');
+                    progressBars.forEach(bar => bar.classList.add('animate'));
+                    
+                    // Staggered items logic
+                    if (entry.target.classList.contains('grid')) {
+                        const items = entry.target.querySelectorAll('.staggered-item');
+                        items.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('reveal-visible');
+                            }, index * 150);
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal, .staggered-item').forEach(el => revealObserver.observe(el));
+
+        // Parallax Effect for the 'Drive for a Cause' card
+        window.addEventListener('scroll', () => {
+            const targets = document.querySelectorAll('.parallax-target');
+            targets.forEach(target => {
+                const rect = target.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                if (rect.top < viewportHeight && rect.bottom > 0) {
+                    const offset = (viewportHeight - rect.top) * 0.05;
+                    target.style.transform = `translateY(${offset}px)`;
+                }
+            });
+        });
+    </script>
+</body></html>

@@ -1,140 +1,121 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Heart, ArrowRight, Search, Users } from 'lucide-react';
-import { supabase } from '../api/supabase';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
-import AnimatedSection from '../components/ui/AnimatedSection';
-import GlassCard from '../components/ui/GlassCard';
 
-const Charities = () => {
-  const [charities, setCharities] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
-
+function useReveal() {
   useEffect(() => {
-    loadCharities();
+    const els = document.querySelectorAll('.reveal-on-scroll');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    els.forEach(el => obs.observe(el));
+    return () => obs.disconnect();
   }, []);
+}
 
-  const loadCharities = async () => {
-    const { data } = await supabase
-      .from('charities')
-      .select('*')
-      .order('is_featured', { ascending: false });
-    setCharities(data || []);
-    setLoading(false);
-  };
+const CARD = { background: 'rgba(30,41,59,0.6)', border: '1px solid rgba(255,255,255,0.06)' };
 
-  const filtered = charities.filter(c =>
-    c.name.toLowerCase().includes(search.toLowerCase()) ||
-    (c.description && c.description.toLowerCase().includes(search.toLowerCase()))
-  );
+export default function Charities() {
+  useReveal();
 
-  // Default charities for display when DB is empty
-  const defaultCharities = [
-    { id: '1', name: 'Golf for Good Foundation', description: 'Providing golf scholarships and equipment to underprivileged youth across India. Empowering the next generation through sport.', is_featured: true, image_url: null },
-    { id: '2', name: 'Green Earth Initiative', description: 'Environmental conservation and sustainable golf course management. Planting trees and preserving natural habitats.', is_featured: true, image_url: null },
-    { id: '3', name: 'Sports for All', description: 'Making sports accessible to children with disabilities. Building adaptive sports programs nationwide.', is_featured: false, image_url: null },
-    { id: '4', name: 'Rural Education Trust', description: 'Funding education programs in rural India. Building schools, training teachers, and providing resources.', is_featured: false, image_url: null },
-    { id: '5', name: 'Health & Wellness Fund', description: 'Supporting mental health programs for athletes and providing healthcare access to underserved communities.', is_featured: false, image_url: null },
-    { id: '6', name: 'Youth Sports Academy', description: 'Creating pathways for talented young athletes from economically weaker backgrounds to pursue professional sports.', is_featured: false, image_url: null },
+  const partners = [
+    { name: 'Red Cross India', focus: 'Emergency Medical Aid', joined: 'Since 2024', logo: '🏥', color: '#ef4444' },
+    { name: 'Akshaya Patra', focus: 'Mid-Day Meals for Children', joined: 'Since 2024', logo: '🍽️', color: '#f59e0b' },
+    { name: 'Wildlife SOS', focus: 'Animal Rescue & Rehab', joined: 'Since 2024', logo: '🦁', color: '#4ade80' },
+    { name: 'CRY', focus: "Children's Rights & Education", joined: 'Since 2024', logo: '📚', color: '#8badd4' },
+    { name: 'Smile Foundation', focus: 'Healthcare & Education', joined: 'Since 2024', logo: '😊', color: '#ff6b35' },
+    { name: 'Give India', focus: 'Multi-cause Philanthropy', joined: 'Since 2024', logo: '🤲', color: '#a78bfa' },
   ];
 
-  const displayCharities = filtered.length > 0 ? filtered : (search ? [] : defaultCharities);
-
   return (
-    <div className="min-h-screen" style={{ background: 'var(--color-navy-950)' }}>
+    <>
       <Navbar />
+      <main style={{ paddingTop: '6rem', background: 'var(--surface)', color: 'var(--on-surface)' }}>
 
-      {/* Hero */}
-      <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute w-96 h-96 rounded-full" style={{ background: 'radial-gradient(circle, rgba(0,212,170,0.08), transparent 70%)', top: '0%', left: '20%' }} />
-        </div>
-        <div className="container-custom relative z-10">
-          <AnimatedSection className="text-center max-w-3xl mx-auto">
-            <span className="badge badge-emerald mb-4 inline-block">
-              <Heart size={12} className="inline mr-1" />
-              Our Charities
-            </span>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)', color: 'white' }}>
-              Where Your <span className="gradient-text">Impact</span> Goes
-            </h1>
-            <p className="text-lg" style={{ color: 'var(--color-navy-300)', lineHeight: 1.7 }}>
-              Every subscription supports real charities doing real work. Choose where your contribution makes the biggest difference.
-            </p>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* Search */}
-      <section className="pb-8">
-        <div className="container-custom max-w-2xl">
-          <AnimatedSection>
-            <div className="relative">
-              <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2" style={{ color: 'var(--color-navy-400)' }} />
-              <input
-                type="text"
-                placeholder="Search charities..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="input-field pl-12"
-              />
+        {/* Hero */}
+        <section style={{ padding: '6rem 2rem 4rem' }}>
+          <div className="editorial-grid" style={{ maxWidth: '1280px', margin: '0 auto' }}>
+            <div style={{ gridColumn: 'span 7' }} className="charity-hero-text">
+              <span className="animate-fade-up eyebrow" style={{ animationDelay: '0.1s', marginBottom: '1rem', display: 'inline-block' }}>Our Partners</span>
+              <h1 className="animate-fade-up" style={{ animationDelay: '0.2s', fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800, color: '#fff', lineHeight: 1.05, marginBottom: '1.5rem' }}>
+                Impact Beyond <br />the <span style={{ color: '#4ade80' }}>Fairway.</span>
+              </h1>
+              <p className="animate-fade-up" style={{ animationDelay: '0.3s', fontSize: '1.125rem', color: '#94a3b8', maxWidth: '32rem', lineHeight: 1.7, marginBottom: '2rem' }}>
+                Every subscriber is a philanthropist. We partner exclusively with verified, high-impact organizations to ensure your generosity reaches those who need it most.
+              </p>
+              <div className="animate-fade-up" style={{ animationDelay: '0.4s', display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+                {[
+                  { val: '₹5,00,000+', lab: 'Total Donated' },
+                  { val: '15+', lab: 'Partner NGOs' },
+                  { val: '100%', lab: 'Verified Impact' },
+                ].map(s => (
+                  <div key={s.lab}>
+                    <div style={{ fontSize: '1.75rem', fontWeight: 900, color: '#ff6b35' }}>{s.val}</div>
+                    <div style={{ fontSize: '0.75rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>{s.lab}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </AnimatedSection>
-        </div>
-      </section>
+            <div style={{ gridColumn: 'span 5' }} className="charity-hero-img">
+              <div className="animate-fade-up" style={{ animationDelay: '0.5s', position: 'relative', height: '24rem', borderRadius: '2rem', overflow: 'hidden', boxShadow: '0 24px 64px rgba(0,0,0,0.4)' }}>
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc0dHg2RklWuEUGkz7zzEv4LJnJFSMv7KBoh5IMRk531uEiTAsgfIWjlEB8QEpiWIfZ1MKVLasbCRjav5pDU3bzuRxgcwBHklIR9mFbhG8i26MwGWEQCHBnudLRKvQQEK5X4nV_4yfJOQSfhzvWZhSZnKiyuQ3T75CXZvFXO_GVP7R_c84RQSFXpiq1Dh7rfJztwKzMp_hNo3Ei7XEEGnZ9l8YULWL_G-3yI6C_mAwn-INCUF3R3ULvBON6gEKWgMMqCZ3TYQWh1MR" alt="Charity Impact" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(12,18,32,0.8), transparent)' }} />
+              </div>
+            </div>
+          </div>
+        </section>
 
-      {/* Charity Grid */}
-      <section className="section-padding pt-8">
-        <div className="container-custom">
-          {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1,2,3,4,5,6].map(i => (
-                <div key={i} className="glass-card p-8 h-64 loading-shimmer" />
+        {/* Partner Grid */}
+        <section style={{ padding: '4rem 2rem 6rem', background: 'var(--surface-container-low)' }}>
+          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+            <h2 className="reveal-on-scroll" style={{ textAlign: 'center', fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight: 800, color: '#fff', marginBottom: '4rem' }}>Our Verified Partners</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }} className="partners-grid">
+              {partners.map((p, i) => (
+                <div key={i} className="reveal-on-scroll card-premium-hover" style={{ animationDelay: `${0.05 * i}s`, ...CARD, padding: '2rem', borderRadius: '1.5rem', borderLeft: `4px solid ${p.color}` }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+                    <div style={{ fontSize: '2rem' }}>{p.logo}</div>
+                    <div>
+                      <h3 style={{ fontWeight: 700, color: '#fff' }}>{p.name}</h3>
+                      <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>{p.joined}</span>
+                    </div>
+                  </div>
+                  <p style={{ fontSize: '0.875rem', color: '#94a3b8' }}>{p.focus}</p>
+                </div>
               ))}
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {displayCharities.map((charity, i) => (
-                <AnimatedSection key={charity.id} delay={i * 0.08} direction="up">
-                  <Link to={`/charities/${charity.id}`}>
-                    <GlassCard className="p-8 h-full flex flex-col">
-                      {charity.is_featured && (
-                        <span className="badge badge-emerald mb-4 self-start">Featured</span>
-                      )}
-                      <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"
-                        style={{ background: `linear-gradient(135deg, rgba(0,212,170,0.15), rgba(245,166,35,0.1))` }}>
-                        <Heart size={24} style={{ color: 'var(--color-emerald-400)' }} />
-                      </div>
-                      <h3 className="text-xl font-bold mb-3" style={{ fontFamily: 'var(--font-heading)', color: 'white' }}>
-                        {charity.name}
-                      </h3>
-                      <p className="text-sm flex-1 mb-5" style={{ color: 'var(--color-navy-300)', lineHeight: 1.7 }}>
-                        {charity.description}
-                      </p>
-                      <div className="flex items-center gap-2 text-sm font-medium" style={{ color: 'var(--color-emerald-400)' }}>
-                        Learn More <ArrowRight size={14} />
-                      </div>
-                    </GlassCard>
-                  </Link>
-                </AnimatedSection>
-              ))}
-            </div>
-          )}
+          </div>
+        </section>
 
-          {!loading && displayCharities.length === 0 && search && (
-            <AnimatedSection className="text-center py-16">
-              <p className="text-lg" style={{ color: 'var(--color-navy-400)' }}>No charities found matching "{search}"</p>
-            </AnimatedSection>
-          )}
-        </div>
-      </section>
+        {/* Impact Marquee */}
+        <section style={{ padding: '2rem 0', overflow: 'hidden', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+          <div style={{ display: 'flex', animation: 'marquee 30s linear infinite', whiteSpace: 'nowrap' }}>
+            {['₹5L+ Donated', '15+ NGOs', '1200+ Members', 'Verified Impact', '100% Transparency', 'Zero Admin Fees', '₹5L+ Donated', '15+ NGOs', '1200+ Members', 'Verified Impact'].map((t, i) => (
+              <span key={i} style={{ fontSize: '1rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.15em', marginRight: '4rem' }}>{t}</span>
+            ))}
+          </div>
+          <style>{`@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
+        </section>
 
+        {/* CTA */}
+        <section style={{ padding: '6rem 2rem' }}>
+          <div className="reveal-on-scroll" style={{ maxWidth: '900px', margin: '0 auto', background: 'linear-gradient(135deg, #2c694e, #1a4032)', borderRadius: '2rem', padding: '3rem', textAlign: 'center', border: '1px solid rgba(74,222,128,0.15)', boxShadow: '0 12px 32px rgba(0,0,0,0.3)' }}>
+            <span className="material-symbols-outlined" style={{ fontSize: '3rem', color: '#4ade80', marginBottom: '1rem' }}>favorite</span>
+            <h3 style={{ fontSize: '2rem', fontWeight: 800, color: '#fff', marginBottom: '1rem' }}>Begin Your Legacy</h3>
+            <p style={{ color: 'rgba(255,255,255,0.7)', marginBottom: '2rem' }}>Choose your charity and start making an impact today.</p>
+            <Link to="/signup"><button style={{ background: '#4ade80', color: '#0f172a', padding: '1rem 2.5rem', borderRadius: '9999px', fontWeight: 700, border: 'none', cursor: 'pointer' }}>Subscribe & Choose Charity</button></Link>
+          </div>
+        </section>
+
+      </main>
       <Footer />
-    </div>
+      <style>{`
+        @media (max-width: 768px) {
+          .charity-hero-text { grid-column: span 12 !important; }
+          .charity-hero-img { grid-column: span 12 !important; }
+          .partners-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </>
   );
-};
-
-export default Charities;
+}
